@@ -1,0 +1,87 @@
+.P {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(231, 231, 231);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;              /* 隐藏溢出的部分 */
+}
+
+.image-container {
+  width: calc(100% - 20px);
+  height: 60%;
+  margin-top: 10px;
+  background: linear-gradient(
+    to top,
+    rgb(35, 35, 35),
+    rgb(152, 151, 151) 54%,
+    rgb(228, 228, 228) 92%,
+    rgb(138, 138, 138)
+  );
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;             /* 限制图像区域 */
+  display: flex;
+  align-items: center;          /* 水平 & 垂直 居中图像容器 */
+  justify-content: center;
+}
+
+.image-content {
+  /* 保持原比例、自适应容器 */
+  max-width: 100%;
+  max-height: 100%;
+  user-select: none;            /* 禁止选中图片 */
+  cursor: grab;
+  transition: transform 0.05s;   /* 缩放/平移时更平滑 */
+}
+.image-content:active {
+  cursor: grabbing;
+}
+
+
+.ButtonGroup {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 列，等分宽度 */
+  grid-template-rows: repeat(2, auto);   /* 2 行，高度自适应 */
+  gap: 10px;                              /* 按钮间距，根据需要调整 */
+  width: 100%;                            /* 或者固定宽度 */
+  max-width: 400px;                       /* 可选，限制最大宽度 */
+  margin: 0 auto;                         /* 水平居中整个按钮组 */
+}
+
+.ButtonGroup button {
+  width: 100%;    /* 让每个按钮铺满单元格 */
+  padding: 10px;  /* 内边距，根据视觉调整 */
+  /* 你还可以加 background/border/radius 等样式 */
+}
+
+
+
+
+
+.SliderGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;           /* 两行之间的垂直间距 */
+  width: 100%;
+  max-width: 400px;    /* 同样可选 */
+  margin: 20px auto;   /* 上下留空并水平居中 */
+}
+
+.SliderGroup .sliderRow {
+  display: flex;
+  align-items: center;      /* 文本和滑块垂直居中对齐 */
+  gap: 10px;                /* 文本和滑块之间的水平间距 */
+}
+
+.SliderGroup .sliderRow label {
+  flex: 1;                  /* 文本占 1 份宽度 */
+  white-space: nowrap;      /* 防止文字换行 */
+}
+
+.SliderGroup .sliderRow input[type="range"] {
+  flex: 2;                  /* 滑块占 2 份宽度，可根据需要调整比例 */
+  /* 如果想让滑块更宽，也可以给 max-width */
+}
+

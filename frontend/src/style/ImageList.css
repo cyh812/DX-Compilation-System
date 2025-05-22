@@ -1,0 +1,24 @@
+.P {
+    width: 100%;
+    height: 100%;
+}
+
+.P1 {
+    width: 100%;
+    height: calc(100% - 80px);
+    background: linear-gradient(to top, rgb(35, 35, 35), rgb(152, 151, 151) 54%, rgb(228, 228, 228) 92%, rgb(138, 138, 138));
+}
+
+.P2 {
+    width: 100%;
+    height: 80px;
+    background-color: black;
+    /* 先把所有方向的 border 清空 */
+    border: none;
+
+    /* 只在上方加 2px 的半透明白色边框 */
+    border-top: 2px solid rgba(255, 255, 255, 0.5);
+
+    /* 可选：保证 box-sizing 包含 border 在内 */
+    box-sizing: border-box;
+}

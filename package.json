@@ -1,0 +1,23 @@
+{
+  "name": "dx-compilation-system",
+  "version": "1.0.0",
+  "description": "DX Compilation System",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm --prefix frontend run dev\" \"uvicorn backend.main:app --reload --port 8000\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cyh812/DX-Compilation-System.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cyh812/DX-Compilation-System/issues"
+  },
+  "homepage": "https://github.com/cyh812/DX-Compilation-System#readme",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
