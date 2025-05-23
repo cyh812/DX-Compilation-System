@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import ImageChoose from './component/ImageChoose'
 import ImageList from './component/ImageList'
+import TextChoose from './component/TextChoose'
 
 function App() {
   // const [message, setMessage] = useState("Loading...");
@@ -53,7 +54,9 @@ function App() {
 
 
       <div className='Text'>
-        <div className='TextChoose'></div>
+        <div className='TextChoose'>
+          <TextChoose></TextChoose>
+        </div>
         <div className='TextList'></div>
       </div>
 

@@ -9,46 +9,17 @@
     /* 隐藏溢出的部分 */
 }
 
-.image-container {
+.T1{
     width: calc(100% - 20px);
-    height: 60%;
-    margin-top: 5px;
-    background: linear-gradient(to top,
-            rgb(35, 35, 35),
-            rgb(152, 151, 151) 54%,
-            rgb(228, 228, 228) 92%,
-            rgb(138, 138, 138));
-    border-radius: 5px;
-    position: relative;
-    overflow: hidden;
-    /* 限制图像区域 */
-    display: flex;
-    align-items: center;
-    /* 水平 & 垂直 居中图像容器 */
-    justify-content: center;
-}
-
-.image-content {
-    /* 保持原比例、自适应容器 */
-    max-width: 100%;
-    max-height: 100%;
-    user-select: none;
-    /* 禁止选中图片 */
-    cursor: grab;
-    transition: transform 0.05s;
-    /* 缩放/平移时更平滑 */
-}
-
-.image-content:active {
-    cursor: grabbing;
+    margin-top: 10px;
 }
 
 
-.ButtonGroup {
+.ButtonGroup2 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     /* 2 列，等分宽度 */
-    grid-template-rows: repeat(2, 30px);
+    grid-template-rows: repeat(1, 30px);
     /* 2 行，高度自适应 */
     gap: 10px;
     /* 按钮间距，根据需要调整 */
@@ -56,11 +27,11 @@
     /* 或者固定宽度 */
     max-width: 400px;
     /* 可选，限制最大宽度 */
-    margin: 5px auto auto auto;
+    margin: 10px auto auto auto;
     /* 水平居中整个按钮组 */
 }
 
-.ButtonGroup button {
+.ButtonGroup2 button {
     width: calc(100% - 20px);
     /* 让每个按钮铺满单元格 */
     margin-left: 10px;
@@ -69,7 +40,7 @@
     /* 你还可以加 background/border/radius 等样式 */
 }
 
-.ButtonGroup .MuiButton-root {
+.ButtonGroup2 .MuiButton-root {
     justify-content: flex-start;
     padding-left: 20px;
     /* icon 与文字 */
@@ -78,7 +49,7 @@
     font-weight: bold;
 }
 
-.ButtonGroup button:focus {
+.ButtonGroup2 button:focus {
     outline: none;
     /* 直接移除默认 focus 描边 */
     /* 或者换成自定义的，比如： */

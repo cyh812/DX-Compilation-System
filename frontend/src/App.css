@@ -49,7 +49,7 @@
 
 .ImagePart{
   width: 100vw;
-  height: 45vh;
+  height: 50vh;
   background-color: #888;
   display: flex;
   flex-direction: row;
@@ -86,7 +86,7 @@
 
 .Text{
   width: 100vw;
-  height: 30vh;
+  height: 25vh;
   background-color: #f8d0d0;
   display: flex;
   flex-direction: row;
