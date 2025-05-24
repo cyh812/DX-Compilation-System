@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import ImageChoose from './component/ImageChoose'
-import ImageList from './component/ImageList'
+import ImageList from './component/ImageList copy'
 import TextChoose from './component/TextChoose'
 
 function App() {

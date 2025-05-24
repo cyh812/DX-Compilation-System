@@ -8,17 +8,10 @@
 .L1 {
   position: relative;
   flex: 1;
-  background: linear-gradient(
-    to top,
-    rgb(35, 35, 35),
-    rgb(152, 151, 151) 54%,
-    rgb(228, 228, 228) 92%,
-    rgb(138, 138, 138)
-  );
+  background: linear-gradient(to top, #232323, #989797 54%, #e4e4e4 92%, #8a8a8a);
   overflow: hidden;
 }
 
-/* 悬浮顶部滚动条，高度28px */
 .top-scroll {
   position: absolute;
   top: 0;
@@ -29,12 +22,12 @@
   overflow-y: hidden;
   z-index: 10;
 }
+
 .top-scroll .scroll-content {
   height: 1px;
-  width: 0; /* 由 JS 设置 */
+  width: 0;
 }
 
-/* 主内容区，隐藏滚动条 */
 .wrapper {
   position: absolute;
   top: 0;
@@ -45,6 +38,7 @@
   overflow-y: hidden;
   scrollbar-width: none;
 }
+
 .wrapper::-webkit-scrollbar {
   display: none;
 }
@@ -52,36 +46,34 @@
 .timeline-content {
   position: relative;
   height: 100%;
-  width: 0; /* 由 JS 设置 */
-}
-
-.timeline-item {
-  position: absolute;
-  top: 0;
-  height: 100%;
   width: 0;
 }
 
-.timeline-item .line {
+.bucket-group {
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 100%;
+}
+
+.bucket-group .line {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   width: 2px;
-  background-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.5);
 }
 
-.timeline-item .painting {
+.bucket-group .painting {
   position: absolute;
-  top: 50%;
   left: 0;
-  transform: translate(-50%, -50%);
   object-fit: contain;
 }
 
 .L2 {
   height: 80px;
-  background-color: black;
+  background: black;
   border-top: 2px solid rgba(255, 255, 255, 0.5);
   box-sizing: border-box;
 }
