@@ -3,8 +3,9 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import ImageChoose from './component/ImageChoose'
-import ImageList from './component/ImageList copy'
+import ImageList from './component/ImageList'
 import TextChoose from './component/TextChoose'
+import Matching from './component/Matching'
 
 function App() {
   // const [message, setMessage] = useState("Loading...");
@@ -49,7 +50,9 @@ function App() {
       </div>
 
 
-      <div className='Matching'> </div>
+      <div className='Matching'>
+        <Matching></Matching>
+      </div>
 
 
 
