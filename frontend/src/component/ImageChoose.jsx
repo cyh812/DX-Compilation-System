@@ -4,6 +4,39 @@ import { SvgIcon, Button, Typography, Box } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+const names = [
+  'Oliver Hansen',
+  'Van Henry',
+  'April Tucker',
+  'Ralph Hubbard',
+  'Omar Alexander',
+  'Carlos Abbott',
+  'Miriam Wagner',
+  'Bradley Wilkerson',
+  'Virginia Andrews',
+  'Kelly Snyder',
+];
+
+function getStyles(name, personName, theme) {
+  return {
+    fontWeight: personName.includes(name)
+      ? theme.typography.fontWeightMedium
+      : theme.typography.fontWeightRegular,
+  };
+}
+
 const ImageChoose = ({ src, alt = 'uploaded image', }) => {
   const [value, setValue] = React.useState(30);
   // 当前图片 URL（object URL 或者默认图片）
@@ -270,7 +303,7 @@ const ImageChoose = ({ src, alt = 'uploaded image', }) => {
 
       <div className='search'>
         <FormControlLabel control={<Checkbox />} label="hello1" />
-        <Button variant="contained" startIcon={<Search/>} >
+        <Button variant="contained" startIcon={<Search />} >
           Search
         </Button>
       </div>
