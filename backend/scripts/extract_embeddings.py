@@ -1,4 +1,7 @@
 # scripts/extract_embeddings.py
+
+# 将指定目录下的所有图像进行编码，并将编码结果存在指定路径，每个图像有一个编码
+
 import os
 import torch
 import numpy as np

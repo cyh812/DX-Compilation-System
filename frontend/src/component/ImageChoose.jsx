@@ -5,40 +5,10 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
+const ImageChoose = ({ src, alt = 'uploaded image', onSearch }) => {
 
-const names = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
-
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight: personName.includes(name)
-      ? theme.typography.fontWeightMedium
-      : theme.typography.fontWeightRegular,
-  };
-}
-
-const ImageChoose = ({ src, alt = 'uploaded image', }) => {
-  const [value, setValue] = React.useState(30);
+  // slider的值
+  const [value, setValue] = React.useState(10);
   // 当前图片 URL（object URL 或者默认图片）
   const [imageSrc, setImageSrc] = useState(null);
   // 缩放比例
@@ -81,11 +51,12 @@ const ImageChoose = ({ src, alt = 'uploaded image', }) => {
       URL.revokeObjectURL(imageSrc);
       setImageSrc(null);
     }
+    console.log(imageSrc)
   };
 
   // scale
   const handleWheel = useCallback(e => {
-    e.preventDefault();
+    // e.preventDefault();
     const delta = e.deltaY > 0 ? -0.1 : 0.1;
     setScale(s => Math.max(0.1, s + delta));
   }, []);
@@ -146,6 +117,49 @@ const ImageChoose = ({ src, alt = 'uploaded image', }) => {
     setOffset({ x: 0, y: 0 });
     setClipRect(null);
     setIsClipping(false);
+  };
+
+  // 把imagesrc变为file格式
+  async function blobUrlToFile(blobUrl, filename = 'upload.png') {
+    // 1. 把 Blob URL 当作资源 fetch 一下
+    const res = await fetch(blobUrl)
+    const blob = await res.blob()
+    // 2. 包装成 File 对象
+    return new File([blob], filename, { type: blob.type })
+  }
+
+  // 发送请求给后端
+  const ImageSearch = async () => {
+    if (!imageSrc) {
+      console.warn('请先选择一张图片')
+      return
+    }
+
+    // 把 blob URL 转成 File
+    const fileObj = await blobUrlToFile(imageSrc, 'search.png')
+    console.log(fileObj)
+    // 构造 FormData
+    const formData = new FormData()
+    formData.append('file', fileObj)
+    // formData.append('topk', 5)
+
+    try {
+      const res = await fetch(`/api/search/image?topk=${value}`, {
+        method: 'POST',
+        body: formData,
+      })
+
+      if (!res.ok) {
+        throw new Error(`后端返回 ${res.status}`)
+      }
+
+      const data = await res.json()
+      console.log('检索结果：', data.results)
+
+      onSearch(data.results)
+    } catch (err) {
+      console.error('检索出错：', err)
+    }
   };
 
   function Upload(props) {
@@ -289,6 +303,7 @@ const ImageChoose = ({ src, alt = 'uploaded image', }) => {
             type="range"
             min="0"
             max="100"
+            value={value}
             onChange={e => setValue(e.target.value)}
             style={{
               background: 'blue',
@@ -303,7 +318,7 @@ const ImageChoose = ({ src, alt = 'uploaded image', }) => {
 
       <div className='search'>
         <FormControlLabel control={<Checkbox />} label="hello1" />
-        <Button variant="contained" startIcon={<Search />} >
+        <Button variant="contained" startIcon={<Search />} onClick={ImageSearch} >
           Search
         </Button>
       </div>

@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import '../style/ImageList.css';
+import data from '../assets/image_data.json'
 
 // 模拟数据
 const samplePaintings = [
@@ -15,7 +16,7 @@ const samplePaintings = [
   { src: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', year: 1000, author: 'Artist D' },
 ];
 
-const ImageChoose = ({ paintings = samplePaintings, spanYears = 2000, baseImageSize = 80, gap = 5 }) => {
+const ImageChoose = ({ results, paintings = samplePaintings, spanYears = 2000, baseImageSize = 80, gap = 5 }) => {
   const wrapperRef = useRef(null);
   const topScrollRef = useRef(null);
   const [scale, setScale] = useState(1);
@@ -48,6 +49,10 @@ const ImageChoose = ({ paintings = samplePaintings, spanYears = 2000, baseImageS
       t.querySelector('.scroll-content').style.width = `${contentW}px`;
     }
   }, [scale, paintings]);
+
+  useEffect(() => {
+    console.log(results)
+  }, [results]);
 
   const bucketYears = scale < 2 ? 100 : scale < 4 ? 50 : 1;
   const buckets = {};
@@ -109,7 +114,7 @@ const ImageChoose = ({ paintings = samplePaintings, spanYears = 2000, baseImageS
         </div>
 
       </div>
-      <div className='L2' />
+      <div className='L2'></div> 
     </div>
   );
 };
