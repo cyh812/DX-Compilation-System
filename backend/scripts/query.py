@@ -13,8 +13,17 @@ os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 # 加载模型
 device = "cuda" if torch.cuda.is_available() else "cpu"
-model = CLIPModel.from_pretrained("OFA-Sys/chinese-clip-vit-base-patch16").to(device)
-processor = CLIPProcessor.from_pretrained("OFA-Sys/chinese-clip-vit-base-patch16")
+# model = CLIPModel.from_pretrained("OFA-Sys/chinese-clip-vit-base-patch16").to(device)
+# processor = CLIPProcessor.from_pretrained("OFA-Sys/chinese-clip-vit-base-patch16")
+
+model = ChineseCLIPModel.from_pretrained(
+    "OFA-Sys/chinese-clip-vit-base-patch16",
+    cache_dir=cache_directory,       # 可选：直接以半精度加载，节省显存
+).to(device)
+processor = ChineseCLIPProcessor.from_pretrained(
+    "OFA-Sys/chinese-clip-vit-base-patch16",
+    cache_dir=cache_directory
+)
 
 # 动态定位 index 目录（项目根/backend/index）
 BASE_DIR = Path(__file__).resolve().parent.parent   # backend/scripts → backend
