@@ -6,7 +6,8 @@ import os
 import torch
 import numpy as np
 from PIL import Image, ImageFile, PngImagePlugin
-from transformers import CLIPProcessor, CLIPModel
+# from transformers import CLIPProcessor, CLIPModel
+from transformers import ChineseCLIPProcessor, ChineseCLIPModel
 from tqdm import tqdm
 import warnings
 
@@ -24,10 +25,22 @@ warnings.filterwarnings(
 
 # 设备与模型
 device = "cuda" if torch.cuda.is_available() else "cpu"
-print(device)
 
-model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32").to(device)
-processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
+# 指定你想把模型下载到的本地目录
+cache_directory = "D:/hf_model/"
+
+# 加载模型与 Processor 时传入 cache_dir
+model = ChineseCLIPModel.from_pretrained(
+    "OFA-Sys/chinese-clip-vit-base-patch16",
+    cache_dir=cache_directory,       # 可选：直接以半精度加载，节省显存
+).to(device)
+processor = ChineseCLIPProcessor.from_pretrained(
+    "OFA-Sys/chinese-clip-vit-base-patch16",
+    cache_dir=cache_directory
+)
+
+# model = CLIPModel.from_pretrained("OFA-Sys/chinese-clip-vit-base-patch16").to(device)
+# processor = CLIPProcessor.from_pretrained("OFA-Sys/chinese-clip-vit-base-patch16")
 
 # 路径配置
 IMG_DIR = "E:/ChenWei/"

@@ -5,15 +5,16 @@ import numpy as np
 import faiss
 import torch
 from PIL import Image
-from transformers import CLIPProcessor, CLIPModel
+# from transformers import CLIPProcessor, CLIPModel
+from transformers import ChineseCLIPProcessor, ChineseCLIPModel
 
 # 允许重复加载 OpenMP runtime（不推荐用于生产，只作临时解决）
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 # 加载模型
 device = "cuda" if torch.cuda.is_available() else "cpu"
-model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32").to(device)
-processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
+model = CLIPModel.from_pretrained("OFA-Sys/chinese-clip-vit-base-patch16").to(device)
+processor = CLIPProcessor.from_pretrained("OFA-Sys/chinese-clip-vit-base-patch16")
 
 # 动态定位 index 目录（项目根/backend/index）
 BASE_DIR = Path(__file__).resolve().parent.parent   # backend/scripts → backend
