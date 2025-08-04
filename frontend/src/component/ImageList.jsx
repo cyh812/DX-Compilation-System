@@ -114,7 +114,6 @@ const ImageChoose = ({ results, paintings = samplePaintings, spanYears = 2000, b
         </div>
 
       </div>
-      <div className='L2'></div> 
     </div>
   );
 };

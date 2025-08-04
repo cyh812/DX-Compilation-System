@@ -6,6 +6,9 @@ import ImageChoose from './component/ImageChoose'
 import ImageList from './component/ImageList'
 import TextChoose from './component/TextChoose'
 import Matching from './component/Matching'
+import MatchingLeft from './component/Matching-left'
+import MatchingTop from './component/MatchingTop'
+import MatchingBottom from './component/MatchingBottom'
 
 function App() {
   // 后端请求检索到的相似图片结果
@@ -30,7 +33,14 @@ function App() {
 
 
       <div className='Matching'>
-        <Matching></Matching>
+        <div className='MatchingLeft'>
+          <MatchingLeft />
+        </div>
+        <div className='MatchingList'>
+          <MatchingTop></MatchingTop>
+          <Matching></Matching>
+          <MatchingBottom></MatchingBottom>
+        </div>
       </div>
 
 

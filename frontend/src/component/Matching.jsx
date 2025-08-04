@@ -104,8 +104,8 @@ const ImageChoose = () => {
       const len = Math.hypot(dx, dy) || 1;
       const nx = -dy / len, ny = dx / len;
       const w = w0 + (w1 - w0) * t;
-      topPts.push(`${x + nx * w/2},${y + ny * w/2}`);
-      botPts.push(`${x - nx * w/2},${y - ny * w/2}`);
+      topPts.push(`${x + nx * w / 2},${y + ny * w / 2}`);
+      botPts.push(`${x - nx * w / 2},${y - ny * w / 2}`);
       if (t === 0.5) midPoint = { x, y };
     }
 
@@ -124,7 +124,6 @@ const ImageChoose = () => {
 
   return (
     <div className="M">
-      <div className="M1" />
       <div className="M2" ref={containerRef} style={{ position: 'relative', overflow: 'hidden' }}>
         <svg width={width} height={height} style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }}>
           {links.map((link, i) => {
