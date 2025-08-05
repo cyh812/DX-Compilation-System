@@ -5,10 +5,10 @@ function MatchingTop() {
 
   return (
     <div style={{
-        height: '80px',
+        height: '40px',
         width: '100%',
         backgroundColor: '#141414',
-        borderRadius: '0 0 0 30px'
+        borderRadius: '0 0 0 20px'
     }}>
       
 

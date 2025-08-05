@@ -14,7 +14,7 @@ const MatchingLeft = () => {
 
     return (
         <div className='P1'>
-            <div className='Title'>44444</div>
+            <div className='Title'>Matching View</div>
             <div></div>
             <div></div>
         </div>

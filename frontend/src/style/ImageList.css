@@ -9,7 +9,7 @@
 .L1 {
   position: relative;
   flex: 1;
-  background: linear-gradient(to top, #232323, #989797 54%, #e4e4e4 92%, #8a8a8a);
+  background: #262626;
   overflow: hidden;
   border-radius: 10px;
 }

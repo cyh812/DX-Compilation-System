@@ -4,6 +4,7 @@ import { SvgIcon, Button, Typography, Box } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
+import Slider from '@mui/material/Slider';
 
 /**
  * MyComponent 说明：
@@ -28,9 +29,8 @@ const TextChoose = ({ title, children, onAction }) => {
     function Online(props) {
         return (
             <SvgIcon {...props}>
-                <svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12.3373 16.7273C12.5392 21.6099 14.7139 25.4604 15.9479 27.2694C16.0888 27.4751 16.2183 27.6541 16.3287 27.8064C16.3821 27.8064 16.4316 27.8141 16.4887 27.8141C16.5306 27.8141 16.5687 27.8103 16.6106 27.8064C16.801 27.5513 17.0409 27.2123 17.3075 26.801C18.5644 24.8434 20.423 21.2252 20.6096 16.7311H12.3373V16.7273ZM14.4206 4.41029C14.4206 4.40648 14.4244 4.40648 14.4244 4.40267C9.14194 5.33959 5.07056 9.79944 4.72778 15.261H10.8596C11.05 10.4545 13.0534 6.5431 14.4206 4.41029ZM19.2309 26.4811C18.9909 26.9038 18.7548 27.2885 18.5377 27.6236C23.8393 26.6905 27.9221 22.2116 28.2534 16.7273H22.0873C21.935 20.8596 20.4991 24.253 19.2309 26.4811ZM20.6096 15.261C20.3963 10.4736 18.2102 6.56976 16.98 4.73402C16.8467 4.53597 16.7248 4.36459 16.622 4.21986L16.6182 4.21605C16.5763 4.21605 16.5344 4.20844 16.4887 4.20844C16.4354 4.20844 16.3821 4.21605 16.3287 4.21605C15.2281 5.73949 12.5773 9.9594 12.3373 15.261H20.6096Z" fill="black" />
-                    <path d="M16.4889 0.373108C7.85101 0.373108 0.85083 7.37329 0.85083 16.0112C0.85083 24.649 7.85101 31.6492 16.4889 31.6492C25.1268 31.6492 32.127 24.649 32.127 16.0112C32.127 7.37329 25.1268 0.373108 16.4889 0.373108ZM16.4889 29.486C11.2483 29.486 6.70844 26.4734 4.48041 22.0973C4.19477 21.5374 4.60991 20.8709 5.23832 20.8709C5.55824 20.8709 5.84008 21.0575 5.98481 21.3432C7.63012 24.5805 10.7189 26.957 14.4056 27.6197C13.0345 25.5136 11.035 21.6403 10.8522 16.731H3.74536C3.74536 16.731 3.46352 16.7348 3.2312 16.5177C3.0103 16.3082 3.0103 16.0302 3.0103 16.015C3.0103 8.58442 9.05453 2.53639 16.4889 2.53639C21.7143 2.53639 26.2465 5.53374 28.4821 9.89458C28.7678 10.4544 28.3564 11.1248 27.728 11.1248C27.4081 11.1248 27.1263 10.9381 26.9815 10.6563C25.3248 7.4228 22.2208 5.04624 18.5227 4.40259C18.5684 4.47115 18.6141 4.54351 18.6598 4.61587L18.6941 4.673C18.7017 4.68824 18.7131 4.70347 18.7207 4.71871C20.0728 6.90864 21.9047 10.6791 22.0913 15.2685H29.2324C29.2324 15.2685 29.5219 15.238 29.7694 15.4932C29.937 15.6646 29.9713 15.8664 29.9713 16.015C29.9941 23.4417 23.9194 29.486 16.4889 29.486Z" fill="black" />
+                <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.5 1H17.5C18.0304 1 18.5391 1.21071 18.9142 1.58579C19.2893 1.96086 19.5 2.46957 19.5 3V17C19.5 17.5304 19.2893 18.0391 18.9142 18.4142C18.5391 18.7893 18.0304 19 17.5 19H10.5M10.5 1H3.5C2.96957 1 2.46086 1.21071 2.08579 1.58579C1.71071 1.96086 1.5 2.46957 1.5 3V17C1.5 17.5304 1.71071 18.0391 2.08579 18.4142C2.46086 18.7893 2.96957 19 3.5 19H10.5M10.5 1V19" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
             </SvgIcon>
         );
@@ -39,10 +39,10 @@ const TextChoose = ({ title, children, onAction }) => {
     function Literature(props) {
         return (
             <SvgIcon {...props}>
-                <svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M29.2554 0.563549C29.9775 0.563549 30.6996 1.29143 30.6996 2.01931V18.7606H8.31438C5.90737 18.7606 3.74105 20.7016 3.74105 23.3705C3.74105 26.0394 5.66666 27.7378 8.31438 27.7378H30.9403V29.1935C30.9403 29.9214 30.2182 30.6493 29.4961 30.6493H6.62947C3.25965 30.6493 0.611938 27.9804 0.611938 24.5836V6.38659C0.611938 2.98982 3.25965 0.320923 6.62947 0.320923H29.2554V0.563549ZM30.6996 21.6721V24.5836H8.31438C7.59227 24.5836 6.87017 23.8557 6.87017 23.1278C6.87017 22.4 7.59227 21.6721 8.31438 21.6721H30.6996Z" fill="#2C2C2C" />
+                <svg width="23" height="20" viewBox="0 0 23 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.25 1H7.25C8.31087 1 9.32828 1.42143 10.0784 2.17157C10.8286 2.92172 11.25 3.93913 11.25 5V19C11.25 18.2044 10.9339 17.4413 10.3713 16.8787C9.80871 16.3161 9.04565 16 8.25 16H1.25V1Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M21.25 1H15.25C14.1891 1 13.1717 1.42143 12.4216 2.17157C11.6714 2.92172 11.25 3.93913 11.25 5V19C11.25 18.2044 11.5661 17.4413 12.1287 16.8787C12.6913 16.3161 13.4544 16 14.25 16H21.25V1Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-
             </SvgIcon>
         );
     }
@@ -59,7 +59,7 @@ const TextChoose = ({ title, children, onAction }) => {
 
     return (
         <div className='P1'>
-            <div className='Title'>44444</div>
+            <div className='Title'>Text View</div>
             <div className='T1'>
                 <TextField
                     fullWidth
@@ -70,7 +70,8 @@ const TextChoose = ({ title, children, onAction }) => {
                     sx={{
                         // 1. 整体背景色
                         '& .MuiOutlinedInput-root': {
-                            backgroundColor: '#ffffff',
+                            backgroundColor: '#1C1C1C',
+                            border: '1px solid #1976D2',
                             // 2. 自定义高度 (控制输入区域总高度)
                             height: 130,
                         },
@@ -78,6 +79,7 @@ const TextChoose = ({ title, children, onAction }) => {
                         '& .MuiOutlinedInput-input': {
                             height: '100%',
                             overflow: 'auto',
+                            color:'white'
                         },
                     }}
                 />
@@ -88,42 +90,81 @@ const TextChoose = ({ title, children, onAction }) => {
                     variant="contained"
                     startIcon={<Online />}
                 >
-                    Upload
+                    Extract
                 </Button>
+                <button style={{width:'30px',height:'30px',borderRadius:'30px'}}></button>
+                <button style={{width:'30px',height:'30px',borderRadius:'30px'}}></button>
+                <button style={{width:'30px',height:'30px',borderRadius:'30px'}}></button>
+                <button style={{width:'30px',height:'30px',borderRadius:'30px'}}></button>
+                <button style={{width:'30px',height:'30px',borderRadius:'30px'}}></button>
                 <Button
                     variant="contained"
                     startIcon={<Literature />}
                 >
-                    Delete
+                    Store
                 </Button>
             </div>
-            <div className="SliderGroup">
-                <div className="sliderRow">
-                    <label htmlFor="s2" style={{
-                        fontWeight: 'bolder'
-                    }}>K-value</label>
-                    <input
-                        id="s2"
-                        type="range"
-                        min="0"
-                        max="100"
-                        onChange={e => setValue(e.target.value)}
-                        style={{
-                            background: 'blue',
-                            width: '800px'   // 直接指定你想要的长度
-                        }}
-                    />
-                    <label htmlFor="s2" style={{
-                        fontWeight: 'bolder'
-                    }}>{value}</label>
-                </div>
-            </div>
+            <div className='BottomGroup2'>
 
-            <div className='search'>
-                <FormControlLabel control={<Checkbox />} label="hello1" />
-                <Button variant="contained" startIcon={<Search />} >
-                    Search
-                </Button>
+                <div className='search'>
+                    <FormControlLabel control={<Checkbox />} label="K-value" sx={{
+                        marginLeft: '1px',
+                        '& .MuiFormControlLabel-label': {
+                            marginLeft: '0px',
+                            color: 'white',
+                        },
+                    }} />
+                    <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" sx={{
+                        width: '200px',
+                        height: 10,
+                        marginLeft: '10px',
+                        '& .MuiSlider-rail': {
+                            backgroundColor: '#fff',
+                            opacity: 1,           // 默认为 0.38
+                        },
+                        '& .MuiSlider-track': {
+                            backgroundColor: '#00C1CD',
+                        },
+                        '& .MuiSlider-thumb': {
+                            backgroundColor: '#00C1CD',
+                            '&:hover, &.Mui-focusVisible': {
+                                boxShadow: '0px 0px 0px 8px rgba(0, 193, 205, 0.16)',
+                            },
+                        },
+                    }} />
+                    <Button variant="contained" startIcon={<Search />}>
+                        Retrieval
+                    </Button>
+                </div>
+                <div className='search'>
+                    <FormControlLabel control={<Checkbox />} label="Similarity" sx={{
+                        marginLeft: '1px',
+                        '& .MuiFormControlLabel-label': {
+                            marginLeft: '0px',
+                            color: 'white',
+                        },
+                    }} />
+                    <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" sx={{
+                        width: '200px',
+                        height: 10,
+                        '& .MuiSlider-rail': {
+                            backgroundColor: '#fff',
+                            opacity: 1,           // 默认为 0.38
+                        },
+                        '& .MuiSlider-track': {
+                            backgroundColor: '#00C1CD',
+                        },
+                        '& .MuiSlider-thumb': {
+                            backgroundColor: '#00C1CD',
+                            '&:hover, &.Mui-focusVisible': {
+                                boxShadow: '0px 0px 0px 8px rgba(0, 193, 205, 0.16)',
+                            },
+                        },
+                    }} />
+                    <Button variant="contained" startIcon={<Search />} >
+                        Iterative
+                    </Button>
+                </div>
             </div>
         </div>
     );

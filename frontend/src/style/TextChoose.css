@@ -14,39 +14,46 @@
     margin-top: 10px;
 }
 
+.BottomGroup2 {
+    background-color: #303030;
+    width: 100%;
+    height: calc(40% - 30px);
+    margin-top: 10px;
+}
 
 .ButtonGroup2 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    /* 2 列，等分宽度 */
-    grid-template-rows: repeat(1, 30px);
-    /* 2 行，高度自适应 */
-    gap: 10px;
-    /* 按钮间距，根据需要调整 */
+    box-sizing: border-box;
+    /* 让 padding 不影响总宽度 */
     width: 100%;
-    /* 或者固定宽度 */
-    max-width: 400px;
-    /* 可选，限制最大宽度 */
-    margin: 10px auto auto auto;
-    /* 水平居中整个按钮组 */
+    padding: 0 10px;
+    /* 左右各 10px */
+    
+    margin: 10px auto 0;
+    /* 上 10px，左右居中，或按需改成 margin:10px 0 0; */
+    display: flex;
+    flex-direction: row;
+
 }
 
 .ButtonGroup2 button {
-    width: calc(100% - 20px);
+    width: 120px;
     /* 让每个按钮铺满单元格 */
-    margin-left: 10px;
+    margin-right: 10px;
     padding: 10px;
+    height: 40px;
     /* 内边距，根据视觉调整 */
     /* 你还可以加 background/border/radius 等样式 */
 }
 
 .ButtonGroup2 .MuiButton-root {
     justify-content: flex-start;
-    padding-left: 20px;
+    padding-left: 15px;
     /* icon 与文字 */
     text-transform: none;
     font-family: Arial;
-    font-weight: bold;
+    font-size: 100%;
+    color: white;
+    background-color: #3B3B3B;
 }
 
 .ButtonGroup2 button:focus {

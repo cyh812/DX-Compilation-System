@@ -5,10 +5,10 @@ function MatchingBottom() {
 
     return (
     <div style={{
-        height: '80px',
+        height: '40px',
         width: '100%',
         backgroundColor: '#141414',
-        borderRadius: '30px 0 0 0 '
+        borderRadius: '20px 0 0 0 '
     }}>
 
 

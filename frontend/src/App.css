@@ -82,7 +82,7 @@
   display: flex;
   flex-direction: row;
   width: 100vw;
-  height: calc(35vh - 55px);
+  height: calc(30vh - 55px);
   background-color: #141414;
 }
 
@@ -109,7 +109,7 @@
 
 .Text {
   width: 100vw;
-  height: 25vh;
+  height: 30vh;
   background-color: #141414;
   display: flex;
   flex-direction: row;

@@ -16,6 +16,14 @@
     height: 40px;
     background-color: #303030;
     color: white;
+    display: flex;
+    /* 激活弹性布局 */
+    align-items: center;
+    /* 垂直居中对齐 */
+    padding-left: 20px;
+    /* 与左侧保持 20px 间距，可按需调整 */
+    font-weight: bold;
+    font-size: larger;
 }
 
 
@@ -57,7 +65,7 @@
     width: 100%;
     padding: 0 10px;
     /* 左右各 10px */
-    ;
+
     margin: 10px auto 0;
     /* 上 10px，左右居中，或按需改成 margin:10px 0 0; */
 
@@ -68,10 +76,53 @@
     height: 40px;
 }
 
-.ButtonGroup button {
+/* .ButtonGroup button {
     width: 100%;
-    /* 让按钮撑满它的格子 */
+} */
+
+.placeholder {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
+
+.upload-wrapper {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+}
+
+/* 圆形按钮 */
+.upload-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #00bcd4; /* 可根据需求调整 */
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* 按钮内的“+”图标 */
+.upload-icon {
+  font-size: 24px;
+  line-height: 1;
+  color: white;
+}
+
+/* 按钮右侧文字 */
+.upload-label {
+  margin-left: 8px;
+  color: #ffffff;
+  user-select: none;
+}
+
 
 
 .ButtonGroup .MuiButton-root {
@@ -99,40 +150,6 @@
     margin-top: 10px;
 }
 
-.SliderGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    /* 两行之间的垂直间距 */
-    width: calc(100% - 25px);
-    max-width: 400px;
-    /* 同样可选 */
-    margin: 0px auto;
-    /* 上下留空并水平居中 */
-}
-
-.SliderGroup .sliderRow {
-    display: flex;
-    align-items: center;
-    /* 文本和滑块垂直居中对齐 */
-    gap: 10px;
-    /* 文本和滑块之间的水平间距 */
-}
-
-.SliderGroup .sliderRow label {
-    flex: 1;
-    /* 文本占 1 份宽度 */
-    white-space: nowrap;
-    /* 防止文字换行 */
-}
-
-.SliderGroup .sliderRow input[type="range"] {
-    flex: 10;
-    /* 滑块占 2 份宽度，可根据需要调整比例 */
-    /* 如果想让滑块更宽，也可以给 max-width */
-}
-
-
 .search {
     display: flex;
     align-items: center;
@@ -153,7 +170,7 @@
     font-size: 100%;
     color: white;
     background-color: #535353;
-    width: 105px;
+    width: 115px;
     height: 40px
 }
 

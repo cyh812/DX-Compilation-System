@@ -180,8 +180,16 @@ const ImageChoose = ({ src, alt = 'uploaded image', onSearch }) => {
     return (
       <SvgIcon {...props}>
         {/* 把你 SVG 文件里的 <path d="…"/> 内容粘进去 */}
-        <svg width="28" height="30" viewBox="0 0 28 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M27.7472 10.7404C27.8605 10.4665 27.9266 10.1705 27.9392 9.862C27.9392 9.82737 27.9392 9.79589 27.9424 9.76126V9.72977L27.8889 3.93704C27.8763 2.5109 26.7901 0.780487 25.3671 0.780487L24.561 1.72866C23.6128 2.67683 23.6128 2.67683 22.7226 3.55926C22.4141 3.33573 22.0961 3.1248 21.7687 2.92646C18.5418 0.971417 14.745 0.388996 11.0805 1.28939C7.41911 2.18348 4.3244 4.4565 2.36936 7.68343C0.414309 10.9104 -0.168112 14.7071 0.73228 18.3716C1.63267 22.0362 3.90254 25.1309 7.12947 27.0859C9.36471 28.4397 11.8738 29.1354 14.4239 29.1354C15.5541 29.1354 16.6906 29 17.8177 28.723C21.4822 27.8226 24.5769 25.5496 26.532 22.3227C27.275 21.0949 26.8846 19.4956 25.6568 18.7526C24.429 18.0096 22.8297 18.4 22.0867 19.6278C19.5366 23.837 14.0367 25.1875 9.82435 22.6375C7.7843 21.4034 6.34871 19.4452 5.77888 17.1312C5.20905 14.8142 5.5774 12.4184 6.81465 10.3783C9.33637 6.2195 14.7356 4.85003 18.9259 7.28046C17.9238 8.36585 17.4497 8.83994 16.5015 10.2622C16.5141 11.6883 17.9238 12.1585 19.5492 12.4026H19.5744L25.3671 12.3491C26.3525 12.3397 27.2088 11.7824 27.6401 10.967C27.6779 10.8978 27.7094 10.8254 27.7409 10.7529C27.744 10.7498 27.7472 10.7435 27.7472 10.7404Z" fill="#ffffffff" />
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g clipPath="url(#clip0_154_28)">
+            <path d="M1 4V10H7" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M3.51 14.9999C4.15839 16.8403 5.38734 18.4201 7.01166 19.5013C8.63598 20.5825 10.5677 21.1065 12.5157 20.9944C14.4637 20.8823 16.3226 20.1401 17.8121 18.8797C19.3017 17.6193 20.3413 15.9089 20.7742 14.0063C21.2072 12.1037 21.0101 10.1119 20.2126 8.33105C19.4152 6.55019 18.0605 5.07674 16.3528 4.13271C14.6451 3.18868 12.6769 2.82521 10.7447 3.09707C8.81245 3.36892 7.02091 4.26137 5.64 5.63995L1 9.99995" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </g>
+          <defs>
+            <clipPath id="clip0_154_28">
+              <rect width="24" height="24" fill="white" />
+            </clipPath>
+          </defs>
         </svg>
       </SvgIcon>
     );
@@ -190,8 +198,8 @@ const ImageChoose = ({ src, alt = 'uploaded image', onSearch }) => {
   function Cut(props) {
     return (
       <SvgIcon {...props}>
-        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8.26487 2.52462V6.98993C8.26439 7.41274 8.09488 7.81809 7.79351 8.11706C7.49215 8.41603 7.08355 8.5842 6.65736 8.58468H2.15634C1.73015 8.5842 1.32155 8.41603 1.02019 8.11706C0.718823 7.81809 0.549307 7.41274 0.548828 6.98993V2.52462C0.549307 2.10181 0.718823 1.69646 1.02019 1.39749C1.32155 1.09852 1.73015 0.930345 2.15634 0.929871H6.65736C7.08355 0.930345 7.49215 1.09852 7.79351 1.39749C8.09488 1.69646 8.26439 2.10181 8.26487 2.52462ZM22.7324 8.58468H27.2335C27.6597 8.5842 28.0683 8.41603 28.3696 8.11706C28.671 7.81809 28.8405 7.41274 28.841 6.98993V2.52462C28.8405 2.10181 28.671 1.69646 28.3696 1.39749C28.0683 1.09852 27.6597 0.930345 27.2335 0.929871H22.7324C22.3063 0.930345 21.8977 1.09852 21.5963 1.39749C21.2949 1.69646 21.1254 2.10181 21.1249 2.52462V6.98993C21.1254 7.41274 21.2949 7.81809 21.5963 8.11706C21.8977 8.41603 22.3063 8.5842 22.7324 8.58468ZM6.65736 11.1363H2.15634C1.73015 11.1368 1.32155 11.3049 1.02019 11.6039C0.718823 11.9029 0.549307 12.3082 0.548828 12.731V17.1963C0.549307 17.6191 0.718823 18.0245 1.02019 18.3235C1.32155 18.6224 1.73015 18.7906 2.15634 18.7911H6.65736C7.08355 18.7906 7.49215 18.6224 7.79351 18.3235C8.09488 18.0245 8.26439 17.6191 8.26487 17.1963V12.731C8.26439 12.3082 8.09488 11.9029 7.79351 11.6039C7.49215 11.3049 7.08355 11.1368 6.65736 11.1363ZM11.1656 2.95959L17.5884 6.63848C17.6862 6.69448 17.7971 6.72395 17.91 6.72395C18.0228 6.72394 18.1337 6.69445 18.2315 6.63845C18.3292 6.58244 18.4104 6.5019 18.4668 6.4049C18.5233 6.30791 18.5529 6.19789 18.5529 6.0859V2.52462C18.5524 2.10181 18.3829 1.69646 18.0816 1.39749C17.7802 1.09852 17.3716 0.930345 16.9454 0.929871H12.4444C12.0521 0.930085 11.6735 1.07248 11.3797 1.33027C11.0859 1.58806 10.8971 1.94348 10.8489 2.32966C10.8336 2.4539 10.8555 2.57987 10.9118 2.69188C10.9681 2.8039 11.0564 2.897 11.1656 2.95959ZM6.65736 21.3427H2.15634C1.73015 21.3432 1.32155 21.5113 1.02019 21.8103C0.718823 22.1093 0.549307 22.5146 0.548828 22.9374V27.4027C0.549307 27.8256 0.718823 28.2309 1.02019 28.5299C1.32155 28.8289 1.73015 28.997 2.15634 28.9975H6.65736C7.08355 28.997 7.49215 28.8289 7.79351 28.5299C8.09488 28.2309 8.26439 27.8256 8.26487 27.4027V22.9374C8.26439 22.5146 8.09488 22.1093 7.79351 21.8103C7.49215 21.5113 7.08355 21.3432 6.65736 21.3427ZM29.6208 15.0492L14.5856 6.43755L11.8142 4.85017C11.5128 4.67734 11.255 4.78738 11.1584 4.84279C11.0606 4.89878 10.9795 4.97929 10.923 5.07626C10.8666 5.17322 10.8369 5.28321 10.8369 5.39518V25.808C10.8369 25.9331 10.8739 26.0554 10.9434 26.1598C11.0129 26.2641 11.1119 26.3459 11.2278 26.3949C11.3438 26.444 11.4718 26.4581 11.5958 26.4355C11.7198 26.413 11.8344 26.3547 11.9254 26.2681L16.5871 21.8251L20.5169 28.5777C20.73 28.9439 21.0811 29.2111 21.4928 29.3206C21.9045 29.4301 22.3432 29.3729 22.7124 29.1616L26.6106 26.9289C26.7934 26.8242 26.9537 26.6848 27.0822 26.5186C27.2108 26.3525 27.3051 26.1628 27.3597 25.9605C27.4144 25.7582 27.4283 25.5472 27.4008 25.3396C27.3732 25.1319 27.3047 24.9317 27.1991 24.7503L23.269 17.9977L29.478 16.2144C29.5991 16.1796 29.7072 16.1102 29.7889 16.015C29.8706 15.9197 29.9222 15.8027 29.9374 15.6786C29.9526 15.5544 29.9307 15.4285 29.8744 15.3166C29.8181 15.2047 29.7298 15.1117 29.6206 15.0492H29.6208Z" fill="white" />
+        <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6.25 1H3.25C2.71957 1 2.21086 1.21071 1.83579 1.58579C1.46071 1.96086 1.25 2.46957 1.25 3V6M19.25 6V3C19.25 2.46957 19.0393 1.96086 18.6642 1.58579C18.2891 1.21071 17.7804 1 17.25 1H14.25M14.25 19H17.25C17.7804 19 18.2891 18.7893 18.6642 18.4142C19.0393 18.0391 19.25 17.5304 19.25 17V14M1.25 14V17C1.25 17.5304 1.46071 18.0391 1.83579 18.4142C2.21086 18.7893 2.71957 19 3.25 19H6.25" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </SvgIcon>
     );
@@ -200,8 +208,11 @@ const ImageChoose = ({ src, alt = 'uploaded image', onSearch }) => {
   function Delete(props) {
     return (
       <SvgIcon {...props}>
-        <svg width="34" height="33" viewBox="0 0 34 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M31.7198 5.33766H1.45408C1.07167 5.33766 0.704926 5.49002 0.434522 5.76122C0.164118 6.03242 0.012207 6.40025 0.012207 6.78378C0.012207 7.16732 0.164118 7.53514 0.434522 7.80634C0.704926 8.07754 1.07167 8.2299 1.45408 8.2299H4.79606V25.9911C4.79735 27.6416 5.45123 29.2241 6.61429 30.3917C7.77736 31.5593 9.35465 32.2166 11.0003 32.2195H22.1726C23.8184 32.2169 25.396 31.5597 26.5593 30.3921C27.7225 29.2245 28.3766 27.6417 28.3779 25.9911V8.22596H31.7198C31.9121 8.23098 32.1035 8.19732 32.2826 8.12698C32.4617 8.05664 32.625 7.95103 32.7628 7.81638C32.9006 7.68174 33.0101 7.52078 33.0849 7.34301C33.1597 7.16524 33.1982 6.97425 33.1982 6.78131C33.1982 6.58836 33.1597 6.39738 33.0849 6.2196C33.0101 6.04183 32.9006 5.88088 32.7628 5.74623C32.625 5.61159 32.4617 5.50598 32.2826 5.43563C32.1035 5.36529 31.9121 5.33163 31.7198 5.33665L31.7198 5.33766ZM14.7644 23.0725C14.7652 23.2628 14.7286 23.4514 14.6566 23.6275C14.5846 23.8036 14.4786 23.9637 14.3447 24.0986C14.2108 24.2335 14.0517 24.3406 13.8764 24.4136C13.7012 24.4867 13.5133 24.5243 13.3235 24.5243C13.1337 24.5243 12.9458 24.4867 12.7705 24.4136C12.5953 24.3406 12.4362 24.2335 12.3023 24.0986C12.1684 23.9637 12.0624 23.8036 11.9904 23.6275C11.9183 23.4514 11.8817 23.2628 11.8826 23.0725V13.989C11.8826 13.6057 12.0344 13.2381 12.3046 12.9671C12.5748 12.6961 12.9413 12.5438 13.3235 12.5438C13.7056 12.5438 14.0721 12.6961 14.3424 12.9671C14.6126 13.2381 14.7644 13.6057 14.7644 13.989V23.0725L14.7644 23.0725ZM21.2864 23.0725C21.2864 23.4557 21.1346 23.8233 20.8644 24.0943C20.5942 24.3654 20.2277 24.5176 19.8455 24.5176C19.4634 24.5176 19.0969 24.3654 18.8267 24.0943C18.5565 23.8233 18.4046 23.4557 18.4046 23.0725V13.989C18.4046 13.6057 18.5565 13.2381 18.8267 12.9671C19.0969 12.6961 19.4634 12.5438 19.8455 12.5438C20.2277 12.5438 20.5942 12.6961 20.8644 12.9671C21.1346 13.2381 21.2864 13.6057 21.2864 13.989V23.0725ZM11.0686 3.82309H22.1044C22.4805 3.81328 22.8378 3.65657 23.1003 3.38635C23.3628 3.11613 23.5098 2.75376 23.5098 2.37648C23.5098 1.9992 23.3628 1.63684 23.1003 1.36661C22.8378 1.09639 22.4805 0.939677 22.1044 0.929871H11.0685C10.6925 0.939677 10.3351 1.09639 10.0726 1.36661C9.8101 1.63684 9.66318 1.9992 9.66318 2.37648C9.66318 2.75376 9.8101 3.11613 10.0726 3.38635C10.3351 3.65657 10.6925 3.81328 11.0685 3.82309H11.0686Z" fill="white" />
+        <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3.75 6H5.75H21.75" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M19.75 6V20C19.75 20.5304 19.5393 21.0391 19.1642 21.4142C18.7891 21.7893 18.2804 22 17.75 22H7.75C7.21957 22 6.71086 21.7893 6.33579 21.4142C5.96071 21.0391 5.75 20.5304 5.75 20V6M8.75 6V4C8.75 3.46957 8.96071 2.96086 9.33579 2.58579C9.71086 2.21071 10.2196 2 10.75 2H14.75C15.2804 2 15.7891 2.21071 16.1642 2.58579C16.5393 2.96086 16.75 3.46957 16.75 4V6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M10.75 11V17" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M14.75 11V17" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
 
       </SvgIcon>
@@ -218,6 +229,20 @@ const ImageChoose = ({ src, alt = 'uploaded image', onSearch }) => {
     );
   }
 
+  // 受控状态
+  const [checkedKvalue, setCheckedKvalue] = useState(false);
+  const [checkedSimilar, setCheckedSimilar] = useState(false);
+
+  // Checkbox 切换
+  const handleCheckKvalue = (event) => {
+    const next = event.target.checked;
+    setCheckedKvalue(next);
+  };
+
+  const handleCheckSimilar = (event) => {
+    const next = event.target.checked;
+    setCheckedSimilar(next);
+  };
 
   return (
     <div className="P1">
@@ -244,7 +269,15 @@ const ImageChoose = ({ src, alt = 'uploaded image', onSearch }) => {
           )
           : (
             <div className="placeholder">
-
+              <div className="upload-wrapper">
+                <button
+                  className="upload-button"
+                  onClick={handleUploadClick}
+                >
+                  <span className="upload-icon">＋</span>
+                </button>
+                <span className="upload-label">Import</span>
+              </div>
             </div>
           )
         }
@@ -266,18 +299,23 @@ const ImageChoose = ({ src, alt = 'uploaded image', onSearch }) => {
 
 
       <div className='ButtonGroup'>
+        <Button variant="contained" startIcon={<Cut />} onClick={() => setIsClipping((c) => !c)} color={isClipping ? 'secondary' : 'primary'} sx={{
+          width: '100px'
+        }}>
+          Cut
+        </Button>
         <Button
           variant="contained"
           startIcon={<Upload />}
           onClick={handleUploadClick}
+          sx={{
+            width: '120px'
+          }}
         >
-          Upload
+          Segment
         </Button>
         <Button variant="contained" startIcon={<Reset />} onClick={handleReset}>
           Reset
-        </Button>
-        <Button variant="contained" startIcon={<Cut />} onClick={() => setIsClipping((c) => !c)} color={isClipping ? 'secondary' : 'primary'}>
-          Cut
         </Button>
         <Button
           variant="contained"
@@ -304,16 +342,27 @@ const ImageChoose = ({ src, alt = 'uploaded image', onSearch }) => {
         </div> */}
 
         <div className='search'>
-          <FormControlLabel control={<Checkbox />} label="K-value" sx={{
-            marginLeft: '1px',
-            '& .MuiFormControlLabel-label': {
-              marginLeft: '0px',
-              color: 'white',
-            },
-          }} />
-          <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" sx={{
+          <FormControlLabel control={<Checkbox
+            checked={checkedKvalue}
+            onChange={handleCheckKvalue}
+            sx={{
+              color: '#fff',
+              '&.Mui-checked': {
+                color: '#00C1CD',
+              },
+            }} />}
+            label="K-value"
+            sx={{
+              marginLeft: '1px',
+              '& .MuiFormControlLabel-label': {
+                marginLeft: '0px',
+                color: 'white',
+              },
+            }} />
+          <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" disabled={!checkedKvalue} sx={{
             width: '200px',
             height: 10,
+            marginLeft: '10px',
             '& .MuiSlider-rail': {
               backgroundColor: '#fff',
               opacity: 1,           // 默认为 0.38
@@ -327,20 +376,50 @@ const ImageChoose = ({ src, alt = 'uploaded image', onSearch }) => {
                 boxShadow: '0px 0px 0px 8px rgba(0, 193, 205, 0.16)',
               },
             },
+            '&.Mui-disabled': {
+              // rail 半透明
+              '& .MuiSlider-rail': {
+                backgroundColor: '#fff',
+                opacity: 0.38,
+              },
+              // track 和 thumb 用 theme.palette.action.disabled
+              '& .MuiSlider-track': {
+                backgroundColor: (theme) => theme.palette.action.disabled,
+              },
+              '& .MuiSlider-thumb': {
+                backgroundColor: 'grey',
+                color: (theme) => theme.palette.action.disabled,
+              },
+            },
           }} />
           <Button variant="contained" startIcon={<Search />} onClick={ImageSearch} >
-            Search
+            Retrieval
           </Button>
         </div>
+
+
+
+
+
         <div className='search'>
-          <FormControlLabel control={<Checkbox />} label="Similarity" sx={{
-            marginLeft: '1px',
-            '& .MuiFormControlLabel-label': {
-              marginLeft: '0px',
-              color: 'white',
-            },
-          }} />
-          <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" sx={{
+          <FormControlLabel control={<Checkbox
+            checked={checkedSimilar}
+            onChange={handleCheckSimilar}
+            sx={{
+              color: '#fff',
+              '&.Mui-checked': {
+                color: '#00C1CD',
+              },
+            }} />}
+            label="Similarity"
+            sx={{
+              marginLeft: '1px',
+              '& .MuiFormControlLabel-label': {
+                marginLeft: '0px',
+                color: 'white',
+              },
+            }} />
+          <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" disabled={!checkedSimilar} sx={{
             width: '200px',
             height: 10,
             '& .MuiSlider-rail': {
@@ -356,9 +435,24 @@ const ImageChoose = ({ src, alt = 'uploaded image', onSearch }) => {
                 boxShadow: '0px 0px 0px 8px rgba(0, 193, 205, 0.16)',
               },
             },
+            '&.Mui-disabled': {
+              // rail 半透明
+              '& .MuiSlider-rail': {
+                backgroundColor: '#fff',
+                opacity: 0.38,
+              },
+              // track 和 thumb 用 theme.palette.action.disabled
+              '& .MuiSlider-track': {
+                backgroundColor: (theme) => theme.palette.action.disabled,
+              },
+              '& .MuiSlider-thumb': {
+                backgroundColor: 'grey',
+                color: (theme) => theme.palette.action.disabled,
+              },
+            },
           }} />
           <Button variant="contained" startIcon={<Search />} onClick={ImageSearch} >
-            Search
+            Iterative
           </Button>
         </div>
       </div>
