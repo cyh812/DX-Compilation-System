@@ -16,6 +16,38 @@ const TextChoose = ({ title, children, onAction }) => {
     const [count, setCount] = useState(0);
     const [value, setValue] = React.useState(30);
 
+    // groupActive=false 表示“关闭”状态，按钮半透明且不可点
+    const [groupActive, setGroupActive] = useState(false);
+    // 每个按钮的独立 on/off 状态，初始都 false
+    const [buttonStates, setButtonStates] = useState(Array(5).fill(false));
+
+    // 五个按钮的基础色
+    const baseColors = [
+        '#E57373',  // 红
+        '#81C784',  // 绿
+        '#64B5F6',  // 蓝
+        '#FFD54F',  // 黄
+        '#BA68C8'   // 紫
+    ];
+
+    // 点击 Extract：
+    // 切换 groupActive，并且根据新的 groupActive 批量设置所有小按钮状态
+    const handleExtractClick = () => {
+        const next = !groupActive;
+        setGroupActive(next);
+        setButtonStates(Array(5).fill(next));
+    };
+
+    // 单个小按钮点击时，只在 groupActive 时生效，翻转对应索引状态
+    const handleSmallBtnClick = idx => {
+        if (!groupActive) return;
+        setButtonStates(prev => {
+            const copy = [...prev];
+            copy[idx] = !copy[idx];
+            return copy;
+        });
+    };
+
     function Cut(props) {
         return (
             <SvgIcon {...props}>
@@ -57,6 +89,21 @@ const TextChoose = ({ title, children, onAction }) => {
         );
     }
 
+    // 受控状态
+    const [checkedKvalue, setCheckedKvalue] = useState(false);
+    const [checkedSimilar, setCheckedSimilar] = useState(false);
+
+    // Checkbox 切换
+    const handleCheckKvalue = (event) => {
+        const next = event.target.checked;
+        setCheckedKvalue(next);
+    };
+
+    const handleCheckSimilar = (event) => {
+        const next = event.target.checked;
+        setCheckedSimilar(next);
+    };
+
     return (
         <div className='P1'>
             <div className='Title'>Text View</div>
@@ -79,7 +126,7 @@ const TextChoose = ({ title, children, onAction }) => {
                         '& .MuiOutlinedInput-input': {
                             height: '100%',
                             overflow: 'auto',
-                            color:'white'
+                            color: 'white'
                         },
                     }}
                 />
@@ -89,14 +136,34 @@ const TextChoose = ({ title, children, onAction }) => {
                 <Button
                     variant="contained"
                     startIcon={<Online />}
+                    onClick={handleExtractClick}
                 >
-                    Extract
+                    NER
                 </Button>
-                <button style={{width:'30px',height:'30px',borderRadius:'30px'}}></button>
-                <button style={{width:'30px',height:'30px',borderRadius:'30px'}}></button>
-                <button style={{width:'30px',height:'30px',borderRadius:'30px'}}></button>
-                <button style={{width:'30px',height:'30px',borderRadius:'30px'}}></button>
-                <button style={{width:'30px',height:'30px',borderRadius:'30px'}}></button>
+                <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginLeft: '3px',
+                    marginRight: '5px'
+                }}>
+                    {buttonStates.map((active, i) => (
+                        <button
+                            key={i}
+                            onClick={() => handleSmallBtnClick(i)}
+                            disabled={!groupActive}
+                            style={{
+                                width: 30,
+                                height: 30,
+                                borderRadius: '30px',
+                                marginRight: 10,
+                                border: 'none',
+                                cursor: groupActive ? 'pointer' : 'not-allowed',
+                                backgroundColor: baseColors[i],
+                                opacity: active ? 1 : 0.3
+                            }}
+                        />
+                    ))}
+                </div>
                 <Button
                     variant="contained"
                     startIcon={<Literature />}
@@ -105,16 +172,26 @@ const TextChoose = ({ title, children, onAction }) => {
                 </Button>
             </div>
             <div className='BottomGroup2'>
-
                 <div className='search'>
-                    <FormControlLabel control={<Checkbox />} label="K-value" sx={{
-                        marginLeft: '1px',
-                        '& .MuiFormControlLabel-label': {
-                            marginLeft: '0px',
-                            color: 'white',
-                        },
-                    }} />
-                    <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" sx={{
+                    <FormControlLabel control={<Checkbox
+                        checked={checkedKvalue}
+                        onChange={handleCheckKvalue}
+                        sx={{
+                            color: '#fff',
+                            '&.Mui-checked': {
+                                color: '#00C1CD',
+                            },
+                        }}
+                    />}
+                        label="K-value"
+                        sx={{
+                            marginLeft: '1px',
+                            '& .MuiFormControlLabel-label': {
+                                marginLeft: '0px',
+                                color: 'white',
+                            },
+                        }} />
+                    <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" disabled={!checkedKvalue} sx={{
                         width: '200px',
                         height: 10,
                         marginLeft: '10px',
@@ -131,20 +208,45 @@ const TextChoose = ({ title, children, onAction }) => {
                                 boxShadow: '0px 0px 0px 8px rgba(0, 193, 205, 0.16)',
                             },
                         },
+                        '&.Mui-disabled': {
+                            // rail 半透明
+                            '& .MuiSlider-rail': {
+                                backgroundColor: '#fff',
+                                opacity: 0.38,
+                            },
+                            // track 和 thumb 用 theme.palette.action.disabled
+                            '& .MuiSlider-track': {
+                                backgroundColor: (theme) => theme.palette.action.disabled,
+                            },
+                            '& .MuiSlider-thumb': {
+                                backgroundColor: 'grey',
+                                color: (theme) => theme.palette.action.disabled,
+                            },
+                        },
                     }} />
                     <Button variant="contained" startIcon={<Search />}>
                         Retrieval
                     </Button>
                 </div>
                 <div className='search'>
-                    <FormControlLabel control={<Checkbox />} label="Similarity" sx={{
-                        marginLeft: '1px',
-                        '& .MuiFormControlLabel-label': {
-                            marginLeft: '0px',
-                            color: 'white',
-                        },
-                    }} />
-                    <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" sx={{
+                    <FormControlLabel control={<Checkbox
+                        checked={checkedSimilar}
+                        onChange={handleCheckSimilar}
+                        sx={{
+                            color: '#fff',
+                            '&.Mui-checked': {
+                                color: '#00C1CD',
+                            },
+                        }} />}
+                        label="Similarity"
+                        sx={{
+                            marginLeft: '1px',
+                            '& .MuiFormControlLabel-label': {
+                                marginLeft: '0px',
+                                color: 'white',
+                            },
+                        }} />
+                    <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" disabled={!checkedSimilar} sx={{
                         width: '200px',
                         height: 10,
                         '& .MuiSlider-rail': {
@@ -158,6 +260,21 @@ const TextChoose = ({ title, children, onAction }) => {
                             backgroundColor: '#00C1CD',
                             '&:hover, &.Mui-focusVisible': {
                                 boxShadow: '0px 0px 0px 8px rgba(0, 193, 205, 0.16)',
+                            },
+                        },
+                        '&.Mui-disabled': {
+                            // rail 半透明
+                            '& .MuiSlider-rail': {
+                                backgroundColor: '#fff',
+                                opacity: 0.38,
+                            },
+                            // track 和 thumb 用 theme.palette.action.disabled
+                            '& .MuiSlider-track': {
+                                backgroundColor: (theme) => theme.palette.action.disabled,
+                            },
+                            '& .MuiSlider-thumb': {
+                                backgroundColor: 'grey',
+                                color: (theme) => theme.palette.action.disabled,
                             },
                         },
                     }} />

@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import ImageChoose from './component/ImageChoose'
 import ImageList from './component/ImageList'
@@ -9,10 +7,14 @@ import Matching from './component/Matching'
 import MatchingLeft from './component/Matching-left'
 import MatchingTop from './component/MatchingTop'
 import MatchingBottom from './component/MatchingBottom'
+import Paintings from './component/Paintings'
+import Texts from './component/Texts'
 
 function App() {
   // 后端请求检索到的相似图片结果
   const [results, setResults] = useState([])
+  const [activeTab, setActiveTab] = useState(0)
+
   return (
     <div>
       {/* 头部 */}
@@ -34,11 +36,16 @@ function App() {
 
       <div className='Matching'>
         <div className='MatchingLeft'>
-          <MatchingLeft />
+          <MatchingLeft
+            activeIndex={activeTab}
+            onIndexChange={setActiveTab}
+          />
         </div>
         <div className='MatchingList'>
           <MatchingTop></MatchingTop>
-          <Matching></Matching>
+          {activeTab === 0 && <Paintings />}
+            {activeTab === 1 && <Texts />}
+            {activeTab === 2 && <Matching />}
           <MatchingBottom></MatchingBottom>
         </div>
       </div>

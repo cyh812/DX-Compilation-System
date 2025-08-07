@@ -54,6 +54,8 @@
     font-size: 100%;
     color: white;
     background-color: #3B3B3B;
+    width: 115px;           /* ← 新增 */
+    min-width: 115px;       /* ← 可选，保证最小宽度 */
 }
 
 .ButtonGroup2 button:focus {
@@ -64,37 +66,5 @@
 }
 
 
-.SliderGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    /* 两行之间的垂直间距 */
-    width: calc(100% - 25px);
-    max-width: 400px;
-    /* 同样可选 */
-    margin: 0px auto;
-    /* 上下留空并水平居中 */
-}
-
-.SliderGroup .sliderRow {
-    display: flex;
-    align-items: center;
-    /* 文本和滑块垂直居中对齐 */
-    gap: 10px;
-    /* 文本和滑块之间的水平间距 */
-}
-
-.SliderGroup .sliderRow label {
-    flex: 1;
-    /* 文本占 1 份宽度 */
-    white-space: nowrap;
-    /* 防止文字换行 */
-}
-
-.SliderGroup .sliderRow input[type="range"] {
-    flex: 10;
-    /* 滑块占 2 份宽度，可根据需要调整比例 */
-    /* 如果想让滑块更宽，也可以给 max-width */
-}
 
 

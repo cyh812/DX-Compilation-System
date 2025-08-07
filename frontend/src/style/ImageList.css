@@ -19,15 +19,47 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 28px;
+  height: 32px;
   overflow-x: auto;
   overflow-y: hidden;
   z-index: 10;
 }
 
+.top-scroll::-webkit-scrollbar {
+  height: 30px;       /* 将原来的 28px 调细到 16px */
+}
+
+/* 2. 自定义滑块 (thumb) 的颜色、圆角、内边距来进一步控制“粗细”*/
+.top-scroll::-webkit-scrollbar-thumb {
+  background-color: rgb(150, 150, 150,0.6); /* 半透明蓝，改成你要的颜色 */
+  border-radius: 8px;                        /* 圆角半径 */
+  border: 4px solid transparent;             /* 留出 4px 透明“边框”使 thumb 变细 */
+  background-clip: content-box;              /* 让 border 区域不被 background 覆盖 */
+}
+
+
 .top-scroll .scroll-content {
   height: 1px;
   width: 0;
+}
+
+.scroll {
+  position: relative;           /* 让子元素绝对定位基于这里 */
+  height: 30px;                 /* 固定 20px 高度 */
+  background-image: url('../assets/slider.png');
+  background-size: cover;       /* 或 contain，看你想怎么铺 */
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* 按钮容器 */
+.scroll-content-buttons {
+  position: absolute;
+  bottom: -40px;                /* 按钮高度之外，调整为和按钮高度匹配，-30px 只是示例 */
+  right: 10px;                     /* 紧贴右边 */
+  display: flex;
+  gap: 8px;                     /* 按钮间距 */
+  z-index: 20;
 }
 
 .wrapper {

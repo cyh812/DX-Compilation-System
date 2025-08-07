@@ -336,10 +336,6 @@ const ImageChoose = ({ src, alt = 'uploaded image', onSearch }) => {
       />
 
       <div className='BottomGroup'>
-        {/* <div className="SliderGroup">
-          <div className="sliderRow">
-          </div>
-        </div> */}
 
         <div className='search'>
           <FormControlLabel control={<Checkbox
