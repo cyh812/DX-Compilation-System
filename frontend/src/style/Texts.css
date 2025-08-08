@@ -1,5 +1,74 @@
-.Texts{
-    width: 100%;
-    height: 100%;
-    background-color: rgb(251, 158, 158);
+.Texts {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.texts-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #222;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 234.21px; /* 与Paintings一致限制最高高度 */
+}
+
+.text-wrapper {
+  position: relative;
+  flex: 1 1 0;
+  margin: 0 10px;
+  max-width: calc(100% / 5 - 20px); /* 等宽分布 */
+  height: 100%;  /* 所有卡片统一高度 */
+  padding: 15px;
+  overflow: hidden;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #333;
+  box-sizing: border-box;
+}
+
+.text-content {
+  max-width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+  color: white;
+  text-align: justify;
+  line-height: 1.6;
+  font-size: 14px;
+
+  /* 字体样式调整项 */
+  font-family: "Noto Serif SC", serif;
+  letter-spacing: 0.5px;
+  padding: 5px;
+  z-index: 1;
+}
+
+.text-wrapper:hover .text-content {
+  filter: blur(4px) brightness(0.8);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.text-wrapper:hover .overlay {
+  display: flex;
 }

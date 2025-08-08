@@ -43,7 +43,7 @@ function App() {
         </div>
         <div className='MatchingList'>
           <MatchingTop></MatchingTop>
-          {activeTab === 0 && <Paintings />}
+            {activeTab === 0 && <Paintings />}
             {activeTab === 1 && <Texts />}
             {activeTab === 2 && <Matching />}
           <MatchingBottom></MatchingBottom>
