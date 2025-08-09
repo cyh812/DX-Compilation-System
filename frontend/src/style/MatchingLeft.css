@@ -1,35 +1,41 @@
 .M1 {
-    width: 100%;
-    height: 100%;
-    background-color: #262626;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: hidden;
-    border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  background-color: #262626;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 10px;
 }
 
 .主要内容 {
-  display: flex;
+  position: relative;
+  /* ✅ 这里原来写的 display: relative 是错的 */
   height: 100%;
   width: 100%;
 }
 
 .切换按钮组 {
-  width: 40px;
-  height: 100%;
+  position: absolute;
+  /* ✅ 原来写的 display: absolution 是错的 */
+  width: 240px;
+  height: 40px;
   background-color: antiquewhite;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  top: 0;
+  left: 0;
   gap: 20px;
+  z-index: 10;
+  /* ✅ 确保在内容区域之上 */
 }
 
 .内容区域 {
-  flex: 1;            /* 占满剩余宽度 */
+  position: absolute;
+  /* ✅ 让内容区域覆盖主要内容全部范围 */
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
-  position: relative; /* 以便子面板绝对定位也可 */
 }
 
 /* 三个面板，默认隐藏 */
@@ -41,19 +47,34 @@
 
 /* 激活面板显示 */
 .panel.active {
-  display: block;
+  display: flex;
+  width: 100%;
+  height: 100%;
+
 }
 
 .切换按钮组 .MuiButton-root:focus {
-    outline: none;
-    box-shadow: none;
+  outline: none;
+  box-shadow: none;
 }
 
 .切换按钮组 .MuiButton-root {
-    border-radius: 0 !important;
-    /* 去圆角 */
-    min-width: 20px !important;
-    /* 去掉默认的最小宽度 */
-    width: 40px !important;
-    /* 你想要的宽度 */
+  border-radius: 0 !important;
+  /* 去圆角 */
+  min-width: 20px !important;
+  /* 去掉默认的最小宽度 */
+  width: 40px !important;
+  /* 你想要的宽度 */
+}
+
+.panel-left {
+  width: 50%;
+  height: 100%;
+}
+
+.panel-right {
+  padding-top: 5px;
+  width: 50%;
+  height: 100%;
+  color: #fff;
 }

@@ -1,22 +1,26 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import '../style/ImageList.css';
+import '../style/TextList.css';
 import { SvgIcon, Button, formControlClasses } from '@mui/material';
 import data from '../assets/image_data.json';
 import trash from '../assets/delete.svg';
 import lock from '../assets/lock.svg'
+import Jin from '../assets/经.png'
+import Shi from '../assets/史.png'
+import Zi from '../assets/子.png'
+import Ji from '../assets/集.png'
+import Fo from '../assets/佛.png'
+import Dao from '../assets/道.png'
+import Zidingyi from '../assets/自定义.png'
 
 // 模拟数据
 const samplePaintings = [
-  { src: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', year: 150, author: 'Artist A' },
-  { src: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', year: 800, author: 'Artist B' },
-  { src: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', year: 1200, author: 'Artist C' },
-  { src: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', year: 1240, author: 'Artist D' },
-  { src: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', year: 1800, author: 'Artist D' },
-  { src: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', year: 1810, author: 'Artist D' },
-  { src: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', year: 1900, author: 'Artist D' },
-  { src: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', year: 1860, author: 'Artist D' },
-  { src: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', year: 1990, author: 'Artist D' },
-  { src: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg', year: 1000, author: 'Artist D' },
+  { src: Jin, year: 150, author: 'Artist A' },
+  { src: Shi, year: 800, author: 'Artist B' },
+  { src: Zi, year: 1200, author: 'Artist C' },
+  { src: Ji, year: 1240, author: 'Artist D' },
+  { src: Fo, year: 1800, author: 'Artist D' },
+  { src: Dao, year: 1810, author: 'Artist D' },
+  { src: Zidingyi, year: 1900, author: 'Artist D' },
 ];
 
 function Left(props) {
@@ -41,7 +45,7 @@ function Right(props) {
   );
 }
 
-const ImageList = ({
+const TextList = ({
   results,
   paintings = samplePaintings,
   spanYears = 2000,
@@ -116,16 +120,8 @@ const ImageList = ({
   return (
     <div className='L'>
       <div className='L1' onWheel={handleWheel}>
-        <div className='scroll' >
-          <div className="scroll-content-buttons">
-            <Button variant="contained" size="small" startIcon={<Left />} onClick={test}></Button>
-            <Button variant="contained" size="small" startIcon={<Right />}></Button>
-          </div>
-        </div>
-        <div ref={topScrollRef} className='top-scroll' onScroll={() => syncScroll('top')}>
-          <div className='scroll-content' >
-          </div>
-        </div>
+
+
         <div ref={wrapperRef} className='wrapper' onScroll={() => syncScroll('wrapper')}>
           <div className='timeline-content'>
             {containerWidth > 0 && Object.entries(buckets).sort((a, b) => +a[0] - +b[0]).map(([yearStart, list]) => {
@@ -161,7 +157,7 @@ const ImageList = ({
             })}
           </div>
           {selected && (
-            <div className='info-card-v2' role="dialog" aria-label="candidate card" style={{ left: `${selected.x + 10}px`, top: `${selected.y - 180}px` }}>
+            <div className='info-card-v2' role="dialog" aria-label="candidate card" style={{ left: `${selected.x + 10}px`, top: `${selected.y - 160}px` }}>
               {/* 标题栏 */}
               <div className="card-header">
                 <h4 className="card-title" title={selected.title || ""}>
@@ -180,14 +176,12 @@ const ImageList = ({
               </div>
 
 
-              {/* 媒体区：宽度 100%，高度随图自适应，上限 maxImageHeight */}
               <div className="card-media" style={{ "--max-media-h": `${maxImageHeight}px` }}>
-                {selected.imageUrl ? (
-                  <img src={selected.imageUrl} alt="" />
-                ) : (
-                  <div className="media-placeholder" />
-                )}
+                <div className="media-text">
+                  {selected.text || "神功）盖器物图像、图像题材、工艺技法、历史语境与文化符号等要素的多维知识图谱。通过对图像与文本数据的清洗、语义抽取与标准化建模，系统构建文物图像中的实体、关系与属性网络，综合运用语义推理、图计算与神经网络等技术，实现对复杂文化知识的深度关联与智能推演。该图谱不仅具备动态更新与跨模态检索能力，还将为文物图像的人文研究与知识服务提供强有力的支撑，推动中华文明的可视化建模与数字化表达。"}
+                </div>
               </div>
+
 
               {/* 字段信息 */}
               <div className="meta">
@@ -200,13 +194,9 @@ const ImageList = ({
                     <span className="label">Time: </span>
                     <span className="value">{selected.year || "-"}</span>
                   </div>
-                  <div className="col">
-                    <span className="label">Style:</span>
-                    <span className="value">{selected.style || "-"}</span>
-                  </div>
                 </div>
                 <div className="row">
-                  <span className="label">Similarity</span>
+                  <span className="label">Similarity:</span>
                   <span className="value">{selected.similarity ?? "-"}</span>
                 </div>
               </div>
@@ -250,10 +240,19 @@ const ImageList = ({
             </div>
           )}
         </div>
-
+        <div ref={topScrollRef} className='top-scroll2' onScroll={() => syncScroll('top')}>
+          <div className='scroll-content' >
+          </div>
+        </div>
+        <div className='scroll2' >
+          <div className="scroll-content-buttons">
+            <Button variant="contained" size="small" startIcon={<Left />} onClick={test}></Button>
+            <Button variant="contained" size="small" startIcon={<Right />}></Button>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default ImageList;
+export default TextList;

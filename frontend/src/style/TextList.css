@@ -14,9 +14,9 @@
   border-radius: 10px;
 }
 
-.top-scroll {
+.top-scroll2 {
   position: absolute;
-  top: 0;
+  bottom: 0;
   left: 0;
   width: 100%;
   height: 32px;
@@ -25,13 +25,13 @@
   z-index: 10;
 }
 
-.top-scroll::-webkit-scrollbar {
+.top-scroll2::-webkit-scrollbar {
   height: 30px;
   /* 将原来的 28px 调细到 16px */
 }
 
 /* 2. 自定义滑块 (thumb) 的颜色、圆角、内边距来进一步控制“粗细”*/
-.top-scroll::-webkit-scrollbar-thumb {
+.top-scroll2::-webkit-scrollbar-thumb {
   background-color: rgb(150, 150, 150, 0.6);
   /* 半透明蓝，改成你要的颜色 */
   border-radius: 8px;
@@ -43,22 +43,27 @@
 }
 
 
-.top-scroll .scroll-content {
+.top-scroll2 .scroll-content {
   height: 1px;
   width: 0;
 }
 
-.scroll {
-  position: relative;
-  /* 让子元素绝对定位基于这里 */
+.scroll2 {
+  position: absolute;
+  /* 改成绝对定位 */
+  bottom: 0;
+  /* 贴到父元素底部 */
+  left: 0;
+  /* 对齐左边 */
+  width: 100%;
+  /* 占满父元素宽度 */
   height: 30px;
-  /* 固定 20px 高度 */
   background-image: url('../assets/slider.png');
   background-size: cover;
-  /* 或 contain，看你想怎么铺 */
   background-repeat: no-repeat;
   background-position: center;
 }
+
 
 /* 按钮容器 */
 .scroll-content-buttons {
@@ -215,31 +220,74 @@
   display: inline-block;
 }
 
-/* Media */
+/* 媒体区作为滚动容器 */
 .card-media {
   background: #d9d9d9;
   border-radius: 8px;
-  overflow: hidden;
   margin-bottom: 12px;
-  /* 占位最小高；真实图片会按比例撑开到不超过 max-height */
+
+  /* 关键：由内容撑高，但不超过最大高度；超过则滚动 */
   min-height: 30px;
   max-height: 90px;
+  overflow: auto;
+  /* 原来是 hidden，需改为 auto */
+  box-sizing: border-box;
+  /* 计算宽度包含内边距 */
+
+  /* 滚动条整体 */
+  scrollbar-width: thin;
+  /* Firefox: 瘦一点 */
+  scrollbar-color: rgba(0, 0, 0, 0.4) transparent;
+  /* Firefox: thumb颜色+透明轨道 */
 }
 
-.card-media img {
-  width: 100%;
-  height: auto;
-  max-height: var(--max-media-h, 260px);
-  display: block;
-  object-fit: contain;
-  background: #d9d9d9;
+/* WebKit 滚动条（Chrome、Edge、Safari） */
+.card-media::-webkit-scrollbar {
+  width: 6px;
+  /* 滚动条宽度 */
 }
 
+.card-media::-webkit-scrollbar-track {
+  background: transparent;
+  /* 轨道透明 */
+}
+
+.card-media::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.4);
+  /* 滑块颜色 */
+  border-radius: 3px;
+  /* 圆角 */
+}
+
+.card-media::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+  /* 滑块 hover 更深 */
+}
+
+/* 文本样式 */
+.media-text {
+  padding: 5px 5px;
+  /* 给文本留内边距 */
+  color: #111;
+  /* 深色背景改成深字色更易读 */
+  font-size: 14px;
+  line-height: 1.6;
+
+  white-space: pre-wrap;
+  /* 保留换行，同时自动换行 */
+  word-break: break-word;
+  /* 遇到长词也能断行 */
+  overflow-wrap: anywhere;
+  /* 极长字符也能断行 */
+}
+
+/* 可选：无文本占位 */
 .media-placeholder {
   width: 100%;
-  /* height: 160px; */
+  height: 90px;
   background: #d9d9d9;
 }
+
 
 /* Meta */
 .meta .row {
@@ -301,11 +349,12 @@
   border-radius: 5px;
   border: 1px solid rgba(255, 255, 255, .25);
   cursor: pointer;
-  outline: none; 
+  outline: none;
 }
 
 .swatch:focus {
-  outline: none; /* 去掉点击出现的白边 */
+  outline: none;
+  /* 去掉点击出现的白边 */
 }
 
 .swatch.active {
@@ -317,8 +366,10 @@
 }
 
 .swatch.inactive {
-  opacity: 0.4;               /* 非激活状态半透明 */
-  cursor: pointer;            /* 依然可点击 */
+  opacity: 0.4;
+  /* 非激活状态半透明 */
+  cursor: pointer;
+  /* 依然可点击 */
   box-shadow: none;
 }
 

@@ -9,6 +9,7 @@ import MatchingTop from './component/MatchingTop'
 import MatchingBottom from './component/MatchingBottom'
 import Paintings from './component/Paintings'
 import Texts from './component/Texts'
+import TextList from './component/TextList'
 
 function App() {
   // 后端请求检索到的相似图片结果
@@ -43,9 +44,9 @@ function App() {
         </div>
         <div className='MatchingList'>
           <MatchingTop></MatchingTop>
-            {activeTab === 0 && <Paintings />}
-            {activeTab === 1 && <Texts />}
-            {activeTab === 2 && <Matching />}
+          {activeTab === 0 && <Paintings />}
+          {activeTab === 1 && <Texts />}
+          {activeTab === 2 && <Matching />}
           <MatchingBottom></MatchingBottom>
         </div>
       </div>
@@ -56,7 +57,9 @@ function App() {
         <div className='TextChoose'>
           <TextChoose></TextChoose>
         </div>
-        <div className='TextList'></div>
+        <div className='TextList'>
+          <TextList results={results}></TextList>
+        </div>
       </div>
 
     </div>
