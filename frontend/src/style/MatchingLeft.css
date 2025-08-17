@@ -9,34 +9,235 @@
   border-radius: 10px;
 }
 
-.主要内容 {
-  position: relative;
-  /* ✅ 这里原来写的 display: relative 是错的 */
-  height: 100%;
+.content {
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
 }
 
-.切换按钮组 {
-  position: absolute;
-  /* ✅ 原来写的 display: absolution 是错的 */
-  width: 240px;
+.panel-left {
+  width: 50%;
+  height: 100%;
+  padding: 10px;
+}
+
+/* 顶部标签栏 */
+.tab-bar {
+  display: flex;
+  height: 23.5%;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/* 左右标签 */
+.tab {
+  width: 80px;
+  height: 100%;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.tab.active {
+  background-color: #3a3a3a;
+}
+
+.tab img {
+  width: 40px;
   height: 40px;
-  background-color: antiquewhite;
-  top: 0;
-  left: 0;
-  gap: 20px;
-  z-index: 10;
-  /* ✅ 确保在内容区域之上 */
 }
 
-.内容区域 {
-  position: absolute;
-  /* ✅ 让内容区域覆盖主要内容全部范围 */
-  top: 0;
-  left: 0;
+/* 中间上下箭头区 */
+.center-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 2px 0;
+}
+
+button:focus {
+  outline: none;
+}
+
+button {
+  padding: 0;
+  /* 去掉多余内边距 */
+  margin: 0;
+  /* 去掉外边距 */
+  border: none;
+  /* 避免边框撑开 */
+  background: transparent;
+  /* 去掉背景色 */
+  display: inline-flex;
+  /* 让按钮大小跟内容一样 */
+  align-items: center;
+  justify-content: center;
+}
+
+
+.arrow-btn img {
+  width: 12px;
+  height: 12px;
+}
+
+/* 内容区 */
+.panel-area {
+  height: 58%;
+  background-color: #3a3a3a;
+  border-radius: 0 0 12px 12px;
+  padding: 16px;
+  color: #fff;
+}
+
+.content-left {
   width: 100%;
   height: 100%;
 }
+
+.content-left-box {
+  width: 100%;
+  height: 100%;
+  background-color: #282828;
+  border-radius: 10px;
+  color: #fff;
+
+   /* 让图片在容器里水平垂直居中 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* 如果想避免滚动并裁掉溢出内容，保留这行（contain 情况下一般不会溢出） */
+  overflow: hidden;
+}
+
+.fit-img {
+  /* 核心：让图片按比例缩放，直到宽或高贴边 */
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center; /* 居中显示 */
+  display: block;          /* 去掉底部行内元素空隙 */
+  max-height: 200px;
+}
+
+
+.content-both {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  /* 上下间距 */
+  height: 100%;
+}
+
+.button-row {
+  position: relative;
+  /* 让圆形按钮相对定位 */
+  display: flex;
+  margin-top: 10%;
+  gap: 10px;
+}
+
+.btn-green,
+.btn-red {
+  width: 80px;
+  height: 32px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.6;
+  /* 默认半透明 */
+}
+
+.btn-green {
+  background-color: limegreen;
+}
+
+.btn-red {
+  background-color: red;
+}
+
+.btn-green.active,
+.btn-red.active {
+  opacity: 1;
+  /* 激活后全透明度 */
+}
+
+.btn-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  position: absolute;
+}
+
+
+/* 圆形在按钮下方 */
+.circle-below {
+  top: 100%;
+  /* 紧贴按钮下方 */
+  transform: translateY(-11px);
+  /* 向下偏移 */
+}
+
+/* 圆形在按钮上方 */
+.circle-above {
+  bottom: 100%;
+  /* 紧贴按钮上方 */
+  transform: translateY(11px);
+  /* 向上偏移 */
+}
+
+/* 控制左右位置 */
+.left-circle {
+  left: 30px;
+  /* 左侧按钮的水平位置 */
+}
+
+.right-circle {
+  right: 30px;
+  /* 右侧按钮的水平位置 */
+}
+
+.content-right {
+  height: 100%;
+}
+
+.content-right-box {
+  width: 100%;
+  height: 100%;
+  background-color: #282828;
+  border: 1.5px solid rgb(201, 201, 201);
+  border-radius: 10px;
+  color: #fff;
+  box-sizing: border-box;
+
+  /* 控制左上间距 */
+  padding-top: 5px;
+  /* 上侧 */
+  padding-left: 5px;
+  /* 左侧 */
+}
+
+.content-empty {
+  color: #aaa;
+  text-align: center;
+  padding-top: 50px;
+}
+
+
 
 /* 三个面板，默认隐藏 */
 .panel {
@@ -44,6 +245,7 @@
   width: 100%;
   height: 100%;
 }
+
 
 /* 激活面板显示 */
 .panel.active {
@@ -53,27 +255,14 @@
 
 }
 
-.切换按钮组 .MuiButton-root:focus {
-  outline: none;
-  box-shadow: none;
-}
-
-.切换按钮组 .MuiButton-root {
-  border-radius: 0 !important;
-  /* 去圆角 */
-  min-width: 20px !important;
-  /* 去掉默认的最小宽度 */
-  width: 40px !important;
-  /* 你想要的宽度 */
-}
-
-.panel-left {
-  width: 50%;
-  height: 100%;
-}
 
 .panel-right {
-  padding-top: 5px;
+  display: none;
+}
+
+.panel-right.active {
+  display: block;
+  padding-top: 10px;
   width: 50%;
   height: 100%;
   color: #fff;

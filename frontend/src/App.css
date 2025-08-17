@@ -46,13 +46,13 @@
 
 .Head {
   width: 100vw;
-  height: 55px;
+  height: 11vh;
   background-color: #141414;
 }
 
 .ImagePart {
   width: 100vw;
-  height: 40vh;
+  height: 37vh;
   background-color: #141414;
   display: flex;
   flex-direction: row;
@@ -82,7 +82,7 @@
   display: flex;
   flex-direction: row;
   width: 100vw;
-  height: calc(30vh - 55px);
+  height: 25vh;
   background-color: #141414;
 }
 
@@ -109,7 +109,7 @@
 
 .Text {
   width: 100vw;
-  height: 30vh;
+  height: 27vh;
   background-color: #141414;
   display: flex;
   flex-direction: row;

@@ -1,5 +1,6 @@
 .Texts {
   width: 100%;
+  flex: 1;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -7,13 +8,12 @@
 
 .texts-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 20px;
   background-color: #222;
   width: 100%;
   box-sizing: border-box;
-  min-height: 234.21px; /* 与Paintings一致限制最高高度 */
+  height: 100%; /* 与Paintings一致限制最高高度 */
 }
 
 .text-wrapper {

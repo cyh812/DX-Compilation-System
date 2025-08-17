@@ -1,0 +1,76 @@
+/* 外层容器（可自行放到需要的位置） */
+.matching-bottom {
+  width: 100%;
+  background-color: #141414;
+  height: 50px;
+  border-radius: 20 0 0 0px;
+  padding: 0px 20px;              /* 内边距让格子不贴边 */
+  box-sizing: border-box;
+}
+
+/* 30 列等宽的网格布局（水平等间距/等分） */
+.cells-grid2 {
+  display: grid;
+  grid-template-columns: repeat(60, 1fr); /* 30 等宽列 */
+  gap: 10px;                                /* 列间距 */
+  align-items: stretch;                     /* 每个单元格同高（由内容决定）*/
+}
+
+/* 单元格（每个对应一个子对象） */
+.cell {
+  overflow: hidden;
+  display: flex;
+}
+
+/* 单元格内部：竖直堆叠若干“正方形按钮” */
+.cell-inner2 {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 4px;             /* 按钮之间的竖直间距 */
+  padding: 4px;
+  box-sizing: border-box;
+  max-height: 180px;    /* 可自行调整；若按钮很多，可滚动 */
+  overflow-y: auto;
+}
+
+/* 占位（当数据不足 30 个时用于补位） */
+.cell-inner2.placeholder {
+  background: #161616;
+  min-height: 20px;
+}
+
+/* 正方形按钮：宽度 100%，利用 aspect-ratio 保证正方形 */
+.square-btn {
+  width: 100%;
+  aspect-ratio: 1 / 1;      /* 完美正方形 */
+  color: #eaeaea;
+  cursor: pointer;
+  padding: 0;
+  display: flex;            /* 确保内部标签居中 */
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 !important;
+}
+
+/* 悬停/激活态 */
+.square-btn:hover {
+  border: 2px solid #ffffff;
+}
+.square-btn:active {
+  background: #333;
+  border-color: #ffffff;
+}
+
+
+/* 滚动条样式（可选） */
+.cell-inner2::-webkit-scrollbar {
+  width: 6px;
+}
+.cell-inner2::-webkit-scrollbar-thumb {
+  background: #3a3a3a;
+  border-radius: 6px;
+}
+.cell-inner2::-webkit-scrollbar-track {
+  background: transparent;
+}
