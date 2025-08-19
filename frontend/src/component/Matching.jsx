@@ -3,7 +3,7 @@ import '../style/Matching.css';
 import lock from '../assets/lock.svg'
 import edit from '../assets/unedit.svg'
 import unedit from '../assets/edit.svg'
-import { SvgIcon, Slider, Input, Button, Typography, Box } from '@mui/material';
+import { Slider } from '@mui/material';
 
 const COLS = 60;
 const PAD = 20;     // 左右 padding = 20
@@ -50,9 +50,36 @@ const Matching = ({
   const [selected, setSelected] = useState(null);
   const [edited, setedited] = useState(false);
 
-  const [note, setNote] = useState('');  // 输入内容
-  // 根据规则决定是否显示输入框
-  const showInput = edited ? true : (note.trim().length > 0);
+  const currentNote = selected?.note ?? '';
+  const showInput = edited ? true : currentNote.trim().length > 0;
+
+  const textareaRef = useRef(null);
+
+  // useEffect(() => {
+  //   const el = textareaRef.current;
+  //   if (!el) return;
+  //   el.style.height = 'auto';
+  //   el.style.height = `${el.scrollHeight}px`;
+  // }, [note]); // 或 [edited]
+
+  const handleChange = (e) => {
+    const el = textareaRef.current;
+    const newNote = e.target.value;
+
+    // 1) 更新选中卡片里的 note
+    setSelected(prev => ({ ...prev, note: newNote }));
+
+    // 2) 回写到 links 数组
+    setLinks(prev =>
+      prev.map((l, idx) =>
+        idx === selected.index ? { ...l, note: newNote } : l
+      )
+    );
+
+    // 关键：每次输入先重置高度再自适应内容
+    el.style.height = "auto";
+    el.style.height = `${el.scrollHeight}px`;
+  };
 
   const cardRef = useRef(null);
   const sliderSx = {
@@ -97,9 +124,6 @@ const Matching = ({
       },
     },
   };
-
-
-
 
   // 测量容器大小
   useEffect(() => {
@@ -181,20 +205,6 @@ const Matching = ({
   }, [layout, height, topNodes, bottomNodes]);
 
   // === 生成链接 ===
-  // 规则：上下都“非空”的节点，两两成边；每条边有 value∈[0,1]（映射色）
-  // const links = useMemo(() => {
-  //   const tops = topNodes.filter(n => n.blocks.length > 0);
-  //   const bots = bottomNodes.filter(n => n.blocks.length > 0);
-  //   const out = [];
-  //   for (const t of tops) {
-  //     for (const b of bots) {
-  //       const value = Math.random(); // 0..1
-  //       out.push({ from: t.id, to: b.id, value });
-  //     }
-  //   }
-  //   return out;
-  // }, [topNodes, bottomNodes]);
-
   const [links, setLinks] = useState([]);
 
   useEffect(() => {
@@ -209,6 +219,7 @@ const Matching = ({
           from: t.id,
           to: b.id,
           value: Math.random(),     // 0..1
+          note: ''
         });
       }
     }
@@ -254,13 +265,6 @@ const Matching = ({
     };
   };
 
-  // 点击处理
-  // const handleClick = (link) => {
-  //   const { from, to } = link;
-  //   const { mid } = makeRibbonPath(from, to);
-  //   setSelected({ ...link, pos: mid });
-  // };
-
   const handleClick = (link, index) => {
     const { mid } = makeRibbonPath(link.from, link.to);
     setSelected({ ...link, index, pos: mid }); // 记住 index 方便回写
@@ -285,20 +289,6 @@ const Matching = ({
           height={height}
           style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }}
         >
-          {/* {links.map((link, i) => {
-            const { d } = makeRibbonPath(link.from, link.to);
-            const color = redWhiteGreen(link.value);
-            return (
-              <path
-                key={i}
-                d={d}
-                fill={color}
-                opacity="0.85"
-                style={{ cursor: 'pointer', pointerEvents: 'all' }}
-                onClick={() => handleClick(link)}
-              />
-            );
-          })} */}
 
           {links.map((link, i) => {
             const { d } = makeRibbonPath(link.from, link.to);
@@ -324,7 +314,7 @@ const Matching = ({
             ref={cardRef}
             style={{
               left: `${selected.pos.x + 10}px`,
-              top: `${selected.pos.y - 20}px`,
+              top: `${selected.pos.y - 40}px`,
             }}
           >
             <div style={{
@@ -381,25 +371,29 @@ const Matching = ({
               {showInput && (
                 <div style={{ marginTop: 8 }}>
                   <textarea
+                    ref={textareaRef}
                     className="note-input"
                     placeholder="请输入备注..."
                     rows={1}                         // 一行高
-                    value={note}
-                    onChange={(e) => setNote(e.target.value)}
+                    value={currentNote}
+                    onChange={handleChange}
                     disabled={!edited}               // unedit 时锁定
                     style={{
                       boxSizing: 'border-box',
                       width: '100%',
-                      resize: 'vertical',            // 需要的话可拉伸；不需要就设 'none'
-                      padding: '10px 10px',
+                      resize: "none",            // 需要的话可拉伸；不需要就设 'none'
+                      padding: '10px',
                       borderRadius: 6,
                       border: '1px solid #ccc',
                       background: !edited ? '#1c1c1c' : '#1c1c1c',
                       color: '#fff',
                       outline: 'none',
                       fontSize: '16px',
+                      boxSizing: "border-box",     // ✅ 防止溢出
+                      overflow: "hidden",          // ✅ 隐藏滚动条
                     }}
                   />
+
                 </div>
               )}
 
