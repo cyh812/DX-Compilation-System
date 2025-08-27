@@ -229,7 +229,7 @@
   /* 关键：由内容撑高，但不超过最大高度；超过则滚动 */
   min-height: 30px;
   max-height: 90px;
-  overflow: auto;
+  overflow: hidden;
   /* 原来是 hidden，需改为 auto */
   box-sizing: border-box;
   /* 计算宽度包含内边距 */

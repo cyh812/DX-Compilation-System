@@ -7,7 +7,7 @@ import upArrowIcon from '../assets/rightarrow.svg'
 import imgSrc from '../assets/D004423.jpg'
 
 const MatchingLeft = ({ activeIndex, onIndexChange, leftIcon,
-  rightIcon,
+  rightIcon,clipImage 
 }) => {
   const [seed, setSeed] = useState(56);
   const [count, setCount] = useState(56);
@@ -185,7 +185,7 @@ const MatchingLeft = ({ activeIndex, onIndexChange, leftIcon,
     if (leftActive) {
       return <div className="content-left">
         <div className='content-left-box'>
-           <img className="fit-img" src={imgSrc} alt="" />
+           <img className="fit-img" src={clipImage} alt="" />
         </div>
       </div>;
     }

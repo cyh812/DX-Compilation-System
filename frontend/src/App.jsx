@@ -16,6 +16,9 @@ function App() {
   const [results, setResults] = useState([])
   const [activeTab, setActiveTab] = useState(0)
 
+  // 传给图生文的图片切片
+  const [clipImage, setClipImage] = useState(null);
+
   return (
     <div>
       {/* 头部 */}
@@ -25,7 +28,9 @@ function App() {
       <div className='ImagePart'>
         {/* 图像输入与定制化 */}
         <div className='ImageChoose'>
-          <ImageChoose onSearch={setResults}
+          <ImageChoose
+            onSearch={setResults}
+            onClip={setClipImage}
           ></ImageChoose>
         </div>
         {/* 检索结果列表 */}
@@ -40,6 +45,7 @@ function App() {
           <MatchingLeft
             activeIndex={activeTab}
             onIndexChange={setActiveTab}
+            clipImage={clipImage}
           />
         </div>
         <div className='MatchingList'>

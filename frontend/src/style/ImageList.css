@@ -224,16 +224,31 @@
   /* 占位最小高；真实图片会按比例撑开到不超过 max-height */
   min-height: 30px;
   max-height: 90px;
+
+
+  display: flex;
+  /* ✅ 居中对齐图片 */
+  justify-content: center;
+  align-items: center;
 }
 
 .card-media img {
   width: 100%;
   height: auto;
-  max-height: var(--max-media-h, 260px);
+  max-height: var(--max-media-h, 300px);
   display: block;
   object-fit: contain;
   background: #d9d9d9;
+
+  max-width: 100%;
+  user-select: none;
+  /* 不允许选中文字 */
+  pointer-events: none;
+  /* 只通过容器处理拖拽，防止img自身拖拽 */
 }
+
+
+
 
 .media-placeholder {
   width: 100%;
@@ -301,11 +316,12 @@
   border-radius: 5px;
   border: 1px solid rgba(255, 255, 255, .25);
   cursor: pointer;
-  outline: none; 
+  outline: none;
 }
 
 .swatch:focus {
-  outline: none; /* 去掉点击出现的白边 */
+  outline: none;
+  /* 去掉点击出现的白边 */
 }
 
 .swatch.active {
@@ -317,8 +333,10 @@
 }
 
 .swatch.inactive {
-  opacity: 0.4;               /* 非激活状态半透明 */
-  cursor: pointer;            /* 依然可点击 */
+  opacity: 0.4;
+  /* 非激活状态半透明 */
+  cursor: pointer;
+  /* 依然可点击 */
   box-shadow: none;
 }
 

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import '../style/ImageChoose.css';
 import { SvgIcon, Button, Typography, Box } from '@mui/material';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -6,12 +6,12 @@ import Checkbox from '@mui/material/Checkbox';
 import Slider from '@mui/material/Slider';
 
 
-const ImageChoose = ({ src, alt = 'uploaded image', onSearch }) => {
+const ImageChoose = ({ src, alt = 'uploaded image', onSearch, onClip }) => {
 
+  const imgRef = useRef(null);
   // slider的值
-  const [value, setValue] = React.useState(10);
-  const min = 0, max = 100;
-  const percent = (value - min) / (max - min) * 100;
+  const [value, setValue] = React.useState(50);
+  const [Similarity, setSimilarity] = React.useState(0.5);
   // 当前图片 URL（object URL 或者默认图片）
   const [imageSrc, setImageSrc] = useState(null);
   // 缩放比例
@@ -122,6 +122,54 @@ const ImageChoose = ({ src, alt = 'uploaded image', onSearch }) => {
     setIsClipping(false);
   };
 
+
+  const exportClip = () => {
+    if (!clipRect || !imageSrc || !imgRef.current) return;
+
+    const imgEl = imgRef.current;
+    const img = new Image();
+    img.src = imageSrc; // objectURL 可以直接用
+    img.onload = () => {
+      const natW = img.naturalWidth;
+      const natH = img.naturalHeight;
+
+      // 渲染后的外接尺寸（包含 transform），除以 scale 得到“未 transform 的 CSS 基础尺寸”
+      const rendered = imgEl.getBoundingClientRect();
+      const baseCssW = rendered.width / scale;
+      const baseCssH = rendered.height / scale;
+
+      // 屏幕坐标（容器内）→ 图片 CSS 本地坐标（未 transform）
+      const localCssX = (clipRect.x - offset.x) / scale;
+      const localCssY = (clipRect.y - offset.y) / scale;
+      const localCssW = clipRect.width / scale;
+      const localCssH = clipRect.height / scale;
+
+      // CSS 基础尺寸 → 原图像素
+      const css2natX = natW / baseCssW;
+      const css2natY = natH / baseCssH;
+      let srcX = localCssX * css2natX;
+      let srcY = localCssY * css2natY;
+      let srcW = localCssW * css2natX;
+      let srcH = localCssH * css2natY;
+
+      // 边界裁切，避免越界
+      srcX = Math.max(0, Math.min(natW, srcX));
+      srcY = Math.max(0, Math.min(natH, srcY));
+      srcW = Math.max(1, Math.min(natW - srcX, srcW));
+      srcH = Math.max(1, Math.min(natH - srcY, srcH));
+
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.round(srcW);
+      canvas.height = Math.round(srcH);
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, srcX, srcY, srcW, srcH, 0, 0, canvas.width, canvas.height);
+
+      const croppedUrl = canvas.toDataURL('image/png');
+      onClip?.(croppedUrl);
+    };
+  };
+
+
   // 把imagesrc变为file格式
   async function blobUrlToFile(blobUrl, filename = 'upload.png') {
     // 1. 把 Blob URL 当作资源 fetch 一下
@@ -131,50 +179,92 @@ const ImageChoose = ({ src, alt = 'uploaded image', onSearch }) => {
     return new File([blob], filename, { type: blob.type })
   }
 
+
+  const getFinalImageUrl = () => {
+    return new Promise((resolve) => {
+      if (clipRect) {
+        // 用 exportClip 导出裁剪结果
+        const imgEl = imgRef.current;
+        const img = new Image();
+        img.src = imageSrc;
+        img.onload = () => {
+          const natW = img.naturalWidth;
+          const natH = img.naturalHeight;
+
+          const rendered = imgEl.getBoundingClientRect();
+          const baseCssW = rendered.width / scale;
+          const baseCssH = rendered.height / scale;
+
+          const localCssX = (clipRect.x - offset.x) / scale;
+          const localCssY = (clipRect.y - offset.y) / scale;
+          const localCssW = clipRect.width / scale;
+          const localCssH = clipRect.height / scale;
+
+          const css2natX = natW / baseCssW;
+          const css2natY = natH / baseCssH;
+          let srcX = localCssX * css2natX;
+          let srcY = localCssY * css2natY;
+          let srcW = localCssW * css2natX;
+          let srcH = localCssH * css2natY;
+
+          const canvas = document.createElement("canvas");
+          canvas.width = Math.round(srcW);
+          canvas.height = Math.round(srcH);
+          const ctx = canvas.getContext("2d");
+          ctx.drawImage(img, srcX, srcY, srcW, srcH, 0, 0, canvas.width, canvas.height);
+
+          const croppedUrl = canvas.toDataURL("image/png");
+          resolve(croppedUrl);
+        };
+      } else {
+        resolve(imageSrc); // 没有裁剪，直接返回原图
+      }
+    });
+  };
+
   // 发送请求给后端
   const ImageSearch = async () => {
     if (!imageSrc) {
-      console.warn('请先选择一张图片')
-      return
+      console.warn("请先选择一张图片");
+      return;
     }
 
-    // 把 blob URL 转成 File
-    const fileObj = await blobUrlToFile(imageSrc, 'search.png')
-    console.log(fileObj)
+    // ✅ 获取最终图像 URL（裁剪优先）
+    const finalUrl = await getFinalImageUrl();
+
+    // 把 dataURL / blob URL 转成 File
+    const fileObj = await blobUrlToFile(finalUrl, "search.png");
+
     // 构造 FormData
-    const formData = new FormData()
-    formData.append('file', fileObj)
-    // formData.append('topk', 5)
+    const formData = new FormData();
+    formData.append("file", fileObj);
+
+    // 在 ImageSearch 里，构造完 fileObj 后：
+    console.log("即将上传的文件对象：", fileObj);
+
+    // 可以创建一个本地预览 URL
+    const previewUrl = URL.createObjectURL(fileObj);
+    const img = document.createElement("img");
+    img.src = previewUrl;
+    img.style.maxWidth = "200px";
+    document.body.appendChild(img);  // 直接插到页面上
 
     try {
-      const res = await fetch(`/api/search/image?topk=${value}`, {
-        method: 'POST',
+      const res = await fetch(`/api/search/image?topk=${value}&sim=${Similarity}`, {
+        method: "POST",
         body: formData,
-      })
+      });
 
-      if (!res.ok) {
-        throw new Error(`后端返回 ${res.status}`)
-      }
+      if (!res.ok) throw new Error(`后端返回 ${res.status}`);
 
-      const data = await res.json()
-      console.log('检索结果：', data.results)
-
-      onSearch(data.results)
+      const data = await res.json();
+      console.log("检索结果：", data.results);
+      onSearch(data.results);
     } catch (err) {
-      console.error('检索出错：', err)
+      console.error("检索出错：", err);
     }
   };
 
-  function Upload(props) {
-    return (
-      <SvgIcon {...props}>
-        {/* 把你 SVG 文件里的 <path d="…"/> 内容粘进去 */}
-        <svg width="30" height="31" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3.69811 6.02929L6.32251 2.88001H24.1684L26.7928 6.02929H3.69811ZM19.4445 20.7259V24.925H11.0464V20.7259H4.74787L14.5243 10.537C14.9221 10.1213 15.5709 10.1223 15.9667 10.5349L25.7431 20.7259H19.4445ZM29.3585 6.20355L26.3267 1.65599C26.0055 1.17415 25.277 0.780487 24.7017 0.780487H5.78923C5.22551 0.780487 4.48648 1.1731 4.1642 1.65599L1.13249 6.20355C0.811268 6.68539 0.548828 7.55039 0.548828 8.13091V28.0837C0.548828 29.2395 1.48521 30.1738 2.6389 30.1738H27.852C28.9973 30.1738 29.9421 29.2384 29.9421 28.0837V8.13091C29.9421 7.53989 29.6807 6.68644 29.3585 6.20355Z" fill="white" />
-        </svg>
-      </SvgIcon>
-    );
-  }
 
   function Reset(props) {
     return (
@@ -229,6 +319,16 @@ const ImageChoose = ({ src, alt = 'uploaded image', onSearch }) => {
     );
   }
 
+  function DownPush(props) {
+    return (
+      <SvgIcon {...props}>
+        <svg width="117" height="134" viewBox="0 0 117 134" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100 60L88.0833 47.5L66.8333 68.3333V0H49.8333V67.5L28.5833 46.6667L16.6667 59.1667L58.3333 100L100 60ZM0 116.667H116.667V133.333H0V116.667Z" fill="white" />
+        </svg>
+      </SvgIcon>
+    );
+  }
+
   // 受控状态
   const [checkedKvalue, setCheckedKvalue] = useState(false);
   const [checkedSimilar, setCheckedSimilar] = useState(false);
@@ -260,10 +360,11 @@ const ImageChoose = ({ src, alt = 'uploaded image', onSearch }) => {
         {imageSrc
           ? (
             <img
+              ref={imgRef}
               src={imageSrc}
               alt={alt}
               className="image-content"
-              style={{ transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale})` }}
+              style={{ transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale})`, transformOrigin: 'top left' }}
               draggable={false}
             />
           )
@@ -282,18 +383,30 @@ const ImageChoose = ({ src, alt = 'uploaded image', onSearch }) => {
           )
         }
         {clipRect && (
-          <div
-            className="clip-rect"
-            style={{
-              position: 'absolute',
-              left: clipRect.x,
-              top: clipRect.y,
-              width: clipRect.width,
-              height: clipRect.height,
-              border: '2px dashed red',
-              pointerEvents: 'none'
-            }}
-          />
+          <>
+            <div
+              className="clip-overlay"
+              style={{
+                clipPath: `polygon(
+          0% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%,
+          ${clipRect.x}px ${clipRect.y}px,
+          ${clipRect.x}px ${clipRect.y + clipRect.height}px,
+          ${clipRect.x + clipRect.width}px ${clipRect.y + clipRect.height}px,
+          ${clipRect.x + clipRect.width}px ${clipRect.y}px,
+          ${clipRect.x}px ${clipRect.y}px
+        )`
+              }}
+            />
+            <div
+              className="clip-rect"
+              style={{
+                left: clipRect.x,
+                top: clipRect.y,
+                width: clipRect.width,
+                height: clipRect.height
+              }}
+            />
+          </>
         )}
       </div>
 
@@ -306,8 +419,8 @@ const ImageChoose = ({ src, alt = 'uploaded image', onSearch }) => {
         </Button>
         <Button
           variant="contained"
-          startIcon={<Upload />}
-          onClick={handleUploadClick}
+          startIcon={<DownPush />}
+          onClick={exportClip}
           sx={{
             width: '120px'
           }}
@@ -355,46 +468,48 @@ const ImageChoose = ({ src, alt = 'uploaded image', onSearch }) => {
                 color: 'white',
               },
             }} />
-          <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" disabled={!checkedKvalue} sx={{
-            width: '200px',
-            height: 10,
-            marginLeft: '10px',
-            '& .MuiSlider-rail': {
-              backgroundColor: '#fff',
-              opacity: 1,           // 默认为 0.38
-            },
-            '& .MuiSlider-track': {
-              backgroundColor: '#00C1CD',
-            },
-            '& .MuiSlider-thumb': {
-              backgroundColor: '#00C1CD',
-              '&:hover, &.Mui-focusVisible': {
-                boxShadow: '0px 0px 0px 8px rgba(0, 193, 205, 0.16)',
-              },
-            },
-            '&.Mui-disabled': {
-              // rail 半透明
+          <Slider value={value}
+            aria-label="Default"
+            valueLabelDisplay="auto"
+            onChange={(e, newValue) => setValue(newValue)}
+            disabled={!checkedKvalue}
+            sx={{
+              width: '200px',
+              height: 10,
+              marginLeft: '10px',
               '& .MuiSlider-rail': {
                 backgroundColor: '#fff',
-                opacity: 0.38,
+                opacity: 1,           // 默认为 0.38
               },
-              // track 和 thumb 用 theme.palette.action.disabled
               '& .MuiSlider-track': {
-                backgroundColor: (theme) => theme.palette.action.disabled,
+                backgroundColor: '#00C1CD',
               },
               '& .MuiSlider-thumb': {
-                backgroundColor: 'grey',
-                color: (theme) => theme.palette.action.disabled,
+                backgroundColor: '#00C1CD',
+                '&:hover, &.Mui-focusVisible': {
+                  boxShadow: '0px 0px 0px 8px rgba(0, 193, 205, 0.16)',
+                },
               },
-            },
-          }} />
+              '&.Mui-disabled': {
+                // rail 半透明
+                '& .MuiSlider-rail': {
+                  backgroundColor: '#fff',
+                  opacity: 0.38,
+                },
+                // track 和 thumb 用 theme.palette.action.disabled
+                '& .MuiSlider-track': {
+                  backgroundColor: (theme) => theme.palette.action.disabled,
+                },
+                '& .MuiSlider-thumb': {
+                  backgroundColor: 'grey',
+                  color: (theme) => theme.palette.action.disabled,
+                },
+              },
+            }} />
           <Button variant="contained" startIcon={<Search />} onClick={ImageSearch} >
             Retrieval
           </Button>
         </div>
-
-
-
 
 
         <div className='search'>
@@ -415,38 +530,46 @@ const ImageChoose = ({ src, alt = 'uploaded image', onSearch }) => {
                 color: 'white',
               },
             }} />
-          <Slider defaultValue={50} aria-label="Default" valueLabelDisplay="auto" disabled={!checkedSimilar} sx={{
-            width: '200px',
-            height: 10,
-            '& .MuiSlider-rail': {
-              backgroundColor: '#fff',
-              opacity: 1,           // 默认为 0.38
-            },
-            '& .MuiSlider-track': {
-              backgroundColor: '#00C1CD',
-            },
-            '& .MuiSlider-thumb': {
-              backgroundColor: '#00C1CD',
-              '&:hover, &.Mui-focusVisible': {
-                boxShadow: '0px 0px 0px 8px rgba(0, 193, 205, 0.16)',
-              },
-            },
-            '&.Mui-disabled': {
-              // rail 半透明
+          <Slider value={Similarity}
+            aria-label="Default"
+            valueLabelDisplay="auto"
+            onChange={(e, newValue) => setSimilarity(newValue)}
+            disabled={!checkedSimilar}
+            min={0}                       // 最小值
+            max={1}                       // 最大值
+            step={0.01}
+            sx={{
+              width: '200px',
+              height: 10,
               '& .MuiSlider-rail': {
                 backgroundColor: '#fff',
-                opacity: 0.38,
+                opacity: 1,           // 默认为 0.38
               },
-              // track 和 thumb 用 theme.palette.action.disabled
               '& .MuiSlider-track': {
-                backgroundColor: (theme) => theme.palette.action.disabled,
+                backgroundColor: '#00C1CD',
               },
               '& .MuiSlider-thumb': {
-                backgroundColor: 'grey',
-                color: (theme) => theme.palette.action.disabled,
+                backgroundColor: '#00C1CD',
+                '&:hover, &.Mui-focusVisible': {
+                  boxShadow: '0px 0px 0px 8px rgba(0, 193, 205, 0.16)',
+                },
               },
-            },
-          }} />
+              '&.Mui-disabled': {
+                // rail 半透明
+                '& .MuiSlider-rail': {
+                  backgroundColor: '#fff',
+                  opacity: 0.38,
+                },
+                // track 和 thumb 用 theme.palette.action.disabled
+                '& .MuiSlider-track': {
+                  backgroundColor: (theme) => theme.palette.action.disabled,
+                },
+                '& .MuiSlider-thumb': {
+                  backgroundColor: 'grey',
+                  color: (theme) => theme.palette.action.disabled,
+                },
+              },
+            }} />
           <Button variant="contained" startIcon={<Search />} onClick={ImageSearch} >
             Iterative
           </Button>
