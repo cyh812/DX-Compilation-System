@@ -324,17 +324,6 @@ const Matching = ({
               justifyContent: "space-between"
 
             }}>
-              <button
-                className="icon-btn"
-                onClick={() => setedited(v => !v)}
-                aria-pressed={!edited}
-                title={edited ? "Edited" : "Unedited"}
-              >
-                {edited
-                  ? (icons.edit ? <img src={icons.edit} alt="" /> : <span className="icon-placeholder" />)
-                  : (icons.unedit ? <img src={icons.unedit} alt="" /> : <span className="icon-placeholder" />)
-                }
-              </button>
 
               <Slider
                 sx={{ ...sliderSx, '--progress': Number(selected.value ?? 0) }} // ⬅️ 动态进度

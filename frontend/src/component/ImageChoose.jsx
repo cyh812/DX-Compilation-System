@@ -179,11 +179,10 @@ const ImageChoose = ({ src, alt = 'uploaded image', onSearch, onClip }) => {
     return new File([blob], filename, { type: blob.type })
   }
 
-
   const getFinalImageUrl = () => {
     return new Promise((resolve) => {
       if (clipRect) {
-        // 用 exportClip 导出裁剪结果
+        // 导出裁剪后的 DataURL
         const imgEl = imgRef.current;
         const img = new Image();
         img.src = imageSrc;
@@ -202,6 +201,7 @@ const ImageChoose = ({ src, alt = 'uploaded image', onSearch, onClip }) => {
 
           const css2natX = natW / baseCssW;
           const css2natY = natH / baseCssH;
+
           let srcX = localCssX * css2natX;
           let srcY = localCssY * css2natY;
           let srcW = localCssW * css2natX;
@@ -213,11 +213,10 @@ const ImageChoose = ({ src, alt = 'uploaded image', onSearch, onClip }) => {
           const ctx = canvas.getContext("2d");
           ctx.drawImage(img, srcX, srcY, srcW, srcH, 0, 0, canvas.width, canvas.height);
 
-          const croppedUrl = canvas.toDataURL("image/png");
-          resolve(croppedUrl);
+          resolve(canvas.toDataURL("image/png"));
         };
       } else {
-        resolve(imageSrc); // 没有裁剪，直接返回原图
+        resolve(imageSrc); // 没有裁剪，返回原图
       }
     });
   };
@@ -225,46 +224,37 @@ const ImageChoose = ({ src, alt = 'uploaded image', onSearch, onClip }) => {
   // 发送请求给后端
   const ImageSearch = async () => {
     if (!imageSrc) {
-      console.warn("请先选择一张图片");
-      return;
+      console.warn('请先选择一张图片')
+      return
     }
 
-    // ✅ 获取最终图像 URL（裁剪优先）
+    // ✅ 获取最终图片
     const finalUrl = await getFinalImageUrl();
-
-    // 把 dataURL / blob URL 转成 File
+    // 把 blob URL 转成 File
     const fileObj = await blobUrlToFile(finalUrl, "search.png");
 
-    // 构造 FormData
     const formData = new FormData();
+    // formData.append('topk', 5)
     formData.append("file", fileObj);
-
-    // 在 ImageSearch 里，构造完 fileObj 后：
-    console.log("即将上传的文件对象：", fileObj);
-
-    // 可以创建一个本地预览 URL
-    const previewUrl = URL.createObjectURL(fileObj);
-    const img = document.createElement("img");
-    img.src = previewUrl;
-    img.style.maxWidth = "200px";
-    document.body.appendChild(img);  // 直接插到页面上
 
     try {
       const res = await fetch(`/api/search/image?topk=${value}&sim=${Similarity}`, {
-        method: "POST",
+        method: 'POST',
         body: formData,
-      });
+      })
 
-      if (!res.ok) throw new Error(`后端返回 ${res.status}`);
+      if (!res.ok) {
+        throw new Error(`后端返回 ${res.status}`)
+      }
 
-      const data = await res.json();
-      console.log("检索结果：", data.results);
-      onSearch(data.results);
+      const data = await res.json()
+      console.log('检索结果：', data.results)
+
+      onSearch(data.results)
     } catch (err) {
-      console.error("检索出错：", err);
+      console.error('检索出错：', err)
     }
   };
-
 
   function Reset(props) {
     return (

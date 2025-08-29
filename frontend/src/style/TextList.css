@@ -78,6 +78,25 @@
   z-index: 20;
 }
 
+.square-button {
+  min-width: 0 !important;    /* 去掉 MUI 默认的 minWidth */
+  width: 30px;                /* 固定宽度 */
+  height: 30px;               /* 固定高度 → 正方形 */
+  border-radius: 8px;         /* 可选：圆角 */
+
+  /* 修改背景色 */
+  background-color: #595959 !important;  /* 默认 MUI 蓝，可以换成你需要的颜色 */
+  color: white !important;               /* 保证图标/文字可见 */
+
+  /* 修改阴影 */
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.25) !important;
+}
+
+.square-button .MuiButton-startIcon {
+  margin: 0 !important;       /* 去掉默认 margin */
+}
+
+
 .wrapper {
   position: absolute;
   top: 0;

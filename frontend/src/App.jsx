@@ -10,14 +10,28 @@ import MatchingBottom from './component/MatchingBottom'
 import Paintings from './component/Paintings'
 import Texts from './component/Texts'
 import TextList from './component/TextList'
+import Null from './component/Null'
 
 function App() {
   // 后端请求检索到的相似图片结果
   const [results, setResults] = useState([])
-  const [activeTab, setActiveTab] = useState(0)
+  const [activeTab, setActiveTab] = useState(-1)
 
   // 传给图生文的图片切片
   const [clipImage, setClipImage] = useState(null);
+
+  const [textNumber, setTextNumber] = useState(1);
+  const [paintingNumber, setPaintingNumber] = useState(1);
+  const [generationTrigger, setGenerationTrigger] = useState(0);
+
+  const handleGenerate = (type, number) => {
+    if (type === "texts") {
+      setTextNumber(number);
+    } else if (type === "paintings") {
+      setPaintingNumber(number);
+    }
+    setGenerationTrigger(prev => prev + 1); // 每次点击都会递增
+  };
 
   return (
     <div>
@@ -46,12 +60,14 @@ function App() {
             activeIndex={activeTab}
             onIndexChange={setActiveTab}
             clipImage={clipImage}
+            onGenerate={handleGenerate}   // 传给图生文/文生图对应生成的数量
           />
         </div>
         <div className='MatchingList'>
           <MatchingTop></MatchingTop>
-          {activeTab === 0 && <Paintings />}
-          {activeTab === 1 && <Texts />}
+          {activeTab === -1 && <Null />}
+          {activeTab === 1 && <Paintings number={paintingNumber} trigger={generationTrigger}/>}
+          {activeTab === 0 && <Texts number={textNumber} trigger={generationTrigger}/>}
           {activeTab === 2 && <Matching />}
           <MatchingBottom></MatchingBottom>
         </div>
